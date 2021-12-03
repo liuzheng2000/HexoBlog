@@ -1,0 +1,486 @@
+<!DOCTYPE html><html lang="zh_CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>从B站学习的Netty01 | 青云小栈</title><meta name="keywords" content="转载,netty,风祈的时光录"><meta name="author" content="Qing Yun"><meta name="copyright" content="Qing Yun"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="转载: https:&#x2F;&#x2F;imlql.cn&#x2F; Selector（选择器） 基本介绍  Java 的 NIO，用非阻塞的 IO 方式。可以用一个线程，处理多个的客户端连接，就会使用到 Selector（选择器）。 Selector 能够检测多个注册的通道上是否有事件发生（注意：多个 Channel 以事件的方式可以注册到同一个 Selector），如果有事件发生，便获取事件然后针对每个事件进行相应的处">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从B站学习的Netty01">
+<meta property="og:url" content="http://qingyun.run/posts/1051297182/index.html">
+<meta property="og:site_name" content="青云小栈">
+<meta property="og:description" content="转载: https:&#x2F;&#x2F;imlql.cn&#x2F; Selector（选择器） 基本介绍  Java 的 NIO，用非阻塞的 IO 方式。可以用一个线程，处理多个的客户端连接，就会使用到 Selector（选择器）。 Selector 能够检测多个注册的通道上是否有事件发生（注意：多个 Channel 以事件的方式可以注册到同一个 Selector），如果有事件发生，便获取事件然后针对每个事件进行相应的处">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun">
+<meta property="article:published_time" content="2021-11-29T01:42:25.000Z">
+<meta property="article:modified_time" content="2021-11-29T02:02:55.487Z">
+<meta property="article:author" content="Qing Yun">
+<meta property="article:tag" content="转载">
+<meta property="article:tag" content="netty">
+<meta property="article:tag" content="风祈的时光录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun"><link rel="shortcut icon" href="http://typa.qingyun.run/img/1.png?x-oss-process=style/qingyun"><link rel="canonical" href="http://qingyun.run/posts/1051297182/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9d0182a84d5490eb50c4c6666812e629";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":60,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Qing Yun","link":"链接: ","source":"来源: 青云小栈","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从B站学习的Netty01',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-11-29 10:02:55'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2969026_lqb1y9vjt3.css"><link rel="stylesheet" href="http://cdn.qingyun.run/HexoIndex.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.ibb.co/y4NkVrm/qingyun.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 测试</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qingyun/"><i class="fa-fw iconfont icon-test"></i><span> 青云</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">青云小栈</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 测试</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qingyun/"><i class="fa-fw iconfont icon-test"></i><span> 青云</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">从B站学习的Netty01</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-29T01:42:25.000Z" title="发表于 2021-11-29 09:42:25">2021-11-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-29T02:02:55.487Z" title="更新于 2021-11-29 10:02:55">2021-11-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/netty/">netty</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="从B站学习的Netty01"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>转载: <a target="_blank" rel="noopener" href="https://imlql.cn/">https://imlql.cn/</a></p>
+<h3 id="Selector（选择器）">Selector（选择器）</h3>
+<h3 id="基本介绍">基本介绍</h3>
+<ol>
+<li><code>Java</code> 的 <code>NIO</code>，用非阻塞的 <code>IO</code> 方式。可以用一个线程，处理多个的客户端连接，就会使用到 <code>Selector</code>（选择器）。</li>
+<li><code>Selector</code> 能够检测多个注册的通道上是否有事件发生（注意：多个 <code>Channel</code> 以事件的方式可以注册到同一个 <code>Selector</code>），如果有事件发生，便获取事件然后针对每个事件进行相应的处理。这样就可以只用一个单线程去管理多个通道，也就是管理多个连接和请求。</li>
+<li>只有在连接/通道真正有读写事件发生时，才会进行读写，就大大地减少了系统开销，并且不必为每个连接都创建一个线程，不用去维护多个线程。</li>
+<li>避免了多线程之间的上下文切换导致的开销。</li>
+</ol>
+<h3 id="Selector-示意图和特点说明">Selector 示意图和特点说明</h3>
+<p><img src="http://typa.qingyun.run/img/0017.png" alt="img"></p>
+<p>说明如下：</p>
+<ol>
+<li><code>Netty</code> 的 <code>IO</code> 线程 <code>NioEventLoop</code> 聚合了 <code>Selector</code>（选择器，也叫多路复用器），可以同时并发处理成百上千个客户端连接。</li>
+<li>当线程从某客户端 <code>Socket</code> 通道进行读写数据时，若没有数据可用时，该线程可以进行其他任务。</li>
+<li>线程通常将非阻塞 <code>IO</code> 的空闲时间用于在其他通道上执行 <code>IO</code> 操作，所以单独的线程可以管理多个输入和输出通道。</li>
+<li>由于读写操作都是非阻塞的，这就可以充分提升 <code>IO</code> 线程的运行效率，避免由于频繁 <code>I/O</code> 阻塞导致的线程挂起。</li>
+<li>一个 <code>I/O</code> 线程可以并发处理 <code>N</code> 个客户端连接和读写操作，这从根本上解决了传统同步阻塞 <code>I/O</code> 一连接一线程模型，架构的性能、弹性伸缩能力和可靠性都得到了极大的提升。</li>
+</ol>
+<h3 id="Selector-类相关方法">Selector 类相关方法</h3>
+<p><img src="http://typa.qingyun.run/img/0018.png" alt="img"></p>
+<h3 id="注意事项">注意事项</h3>
+<ol>
+<li>
+<p><code>NIO</code> 中的 <code>ServerSocketChannel</code> 功能类似 <code>ServerSocket</code>、<code>SocketChannel</code> 功能类似 <code>Socket</code>。</p>
+</li>
+<li>
+<pre><code>Selector
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    相关方法说明</span><br><span class="line"></span><br><span class="line">   - `selector.select();` //阻塞</span><br><span class="line">   - `selector.select(1000);` //阻塞 1000 毫秒，在 1000 毫秒后返回</span><br><span class="line">   - `selector.wakeup();` //唤醒 selector</span><br><span class="line">   - `selector.selectNow();` //不阻塞，立马返还</span><br><span class="line"></span><br><span class="line">## NIO 非阻塞网络编程原理分析图</span><br><span class="line"></span><br><span class="line">`NIO` 非阻塞网络编程相关的（`Selector`、`SelectionKey`、`ServerScoketChannel` 和 `SocketChannel`）关系梳理图</span><br><span class="line"></span><br><span class="line">![img](http://typa.qingyun.run/img/0019.png)</span><br><span class="line"></span><br><span class="line">对上图的说明：</span><br><span class="line"></span><br><span class="line">1. 当客户端连接时，会通过 `ServerSocketChannel` 得到 `SocketChannel`。</span><br><span class="line">2. `Selector` 进行监听 `select` 方法，返回有事件发生的通道的个数。</span><br><span class="line">3. 将 `socketChannel` 注册到 `Selector` 上，`register(Selector sel, int ops)`，一个 `Selector` 上可以注册多个 `SocketChannel`。</span><br><span class="line">4. 注册后返回一个 `SelectionKey`，会和该 `Selector` 关联（集合）。</span><br><span class="line">5. 进一步得到各个 `SelectionKey`（有事件发生）。</span><br><span class="line">6. 在通过 `SelectionKey` 反向获取 `SocketChannel`，方法 `channel()`。</span><br><span class="line">7. 可以通过得到的 `channel`，完成业务处理。</span><br><span class="line"></span><br><span class="line">## NIO 非阻塞网络编程快速入门</span><br><span class="line"></span><br><span class="line">案例：</span><br><span class="line"></span><br><span class="line">1. 编写一个 `NIO` 入门案例，实现服务器端和客户端之间的数据简单通讯（非阻塞）</span><br><span class="line">2. 目的：理解 `NIO` 非阻塞网络编程机制</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">package edu.IO.query;</span><br><span class="line"></span><br><span class="line">import java.net.InetSocketAddress;</span><br><span class="line">import java.nio.ByteBuffer;</span><br><span class="line">import java.nio.channels.SelectionKey;</span><br><span class="line">import java.nio.channels.Selector;</span><br><span class="line">import java.nio.channels.ServerSocketChannel;</span><br><span class="line">import java.nio.channels.SocketChannel;</span><br><span class="line">import java.util.Iterator;</span><br><span class="line">import java.util.Set;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @author qingyun</span><br><span class="line"> * @version 1.0</span><br><span class="line"> * @date 2021/11/22 20:51</span><br><span class="line"> */</span><br><span class="line">public class NIOServer &#123;</span><br><span class="line">    public static void main(String[] args) throws Exception&#123;</span><br><span class="line"></span><br><span class="line">        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();</span><br><span class="line"></span><br><span class="line">        Selector selector = Selector.open();</span><br><span class="line"></span><br><span class="line">        serverSocketChannel.socket().bind(new InetSocketAddress(6666));</span><br><span class="line"></span><br><span class="line">        serverSocketChannel.configureBlocking(false);</span><br><span class="line"></span><br><span class="line">        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line"></span><br><span class="line">        while (true)&#123;</span><br><span class="line">            if (selector.select(1000) == 0)&#123;</span><br><span class="line">                System.out.println(&quot;服务器等待了1秒钟，无连接&quot;);</span><br><span class="line">                continue;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Set&lt;SelectionKey&gt; selectionKeys = selector.selectedKeys();</span><br><span class="line"></span><br><span class="line">            Iterator&lt;SelectionKey&gt; keyiterator = selectionKeys.iterator();</span><br><span class="line"></span><br><span class="line">            while (keyiterator.hasNext())&#123;</span><br><span class="line">                SelectionKey key = keyiterator.next();</span><br><span class="line">                if (key.isAcceptable())&#123;</span><br><span class="line">                    SocketChannel socketChannel = serverSocketChannel.accept();</span><br><span class="line">                    socketChannel.register(selector,SelectionKey.OP_READ, ByteBuffer.allocate(1024));</span><br><span class="line">                &#125;</span><br><span class="line">                if (key.isConnectable())&#123;</span><br><span class="line">                    SocketChannel channel = (SocketChannel) key.channel();</span><br><span class="line">                    ByteBuffer buffer = (ByteBuffer) key.attachment();</span><br><span class="line">                    channel.read(buffer);</span><br><span class="line">                    System.out.println(&quot;form 客户端&quot; + new String(buffer.array()));</span><br><span class="line">                &#125;</span><br><span class="line">                keyiterator.remove();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>pos1：</p>
+<p>1、对操作系统有一定了解的同学，就会大概知道这里监听的是一个Accept通道。这个通道的<br>
+作用就是监听，实际建立连接了还会有一个通道。<br>
+2、简单说一下为什么。因为客户端发请求的时候，服务器这边是肯定要先有一个监听通道，<br>
+监听某个端口是否有客户端要建立链接，如果有客户端想要建立链接，那么会再创建一个和<br>
+客户端真正通信的通道。<br>
+3、如果有其它客户端还想要建立链接，这个Accept监听端口监听到了，就会再创建几个真正<br>
+的通信通道。<br>
+4、也就是Server的一个端口可以建立多个TCP连接，因为IP层协议通过<br>
+目标地址+端口+源地址+源端口四个信息识别一个上下文</p>
+<p><strong>顺便插一句嘴：因为学netty的过程中，发现计算机网络和操作系统蛮重要的，所以接下来会写几篇这方面的文章</strong></p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> edu.IO.query;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.InetSocketAddress;</span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.SocketChannel;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> qingyun</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span> 1.0</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2021/11/22 21:08</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NIOClient</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line"></span><br><span class="line">        SocketChannel socketChannel = SocketChannel.open();</span><br><span class="line">        socketChannel.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">        InetSocketAddress inetSocketAddress = <span class="keyword">new</span> InetSocketAddress(<span class="number">6666</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!socketChannel.connect(inetSocketAddress))&#123;</span><br><span class="line">            <span class="keyword">while</span> (!socketChannel.finishConnect())&#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;连接服务器需要时间，客户端不会阻塞，可以做其他工作&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        String str = <span class="string">&quot;hello ,lingYun&quot;</span>;</span><br><span class="line">        ByteBuffer byteBuffer = ByteBuffer.wrap(str.getBytes());</span><br><span class="line">        socketChannel.write(byteBuffer);</span><br><span class="line">        byteBuffer.clear();</span><br><span class="line">        socketChannel.read(byteBuffer);</span><br><span class="line"></span><br><span class="line">        System.in.read();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="SelectionKey">SelectionKey</h3>
+<ol>
+<li>
+<pre><code>SelectionKey
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">，表示 </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+Selector
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    和网络通道的注册关系，共四种：</span><br><span class="line"></span><br><span class="line">   - `int OP_ACCEPT`：有新的网络连接可以 `accept`，值为 `16`</span><br><span class="line">   - `int OP_CONNECT`：代表连接已经建立，值为 `8`</span><br><span class="line">   - `int OP_READ`：代表读操作，值为 `1`</span><br><span class="line">   - `int OP_WRITE`：代表写操作，值为 `4`</span><br><span class="line"></span><br><span class="line">源码中：</span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line">public static final int OP_READ = 1 &lt;&lt; 0;</span><br><span class="line">public static final int OP_WRITE = 1 &lt;&lt; 2;</span><br><span class="line">public static final int OP_CONNECT = 1 &lt;&lt; 3;</span><br><span class="line">public static final int OP_ACCEPT = 1 &lt;&lt; 4;</span><br></pre></td></tr></table></figure>
+
+</code></pre>
+</li>
+</ol>
+<p><code>SelectionKey</code> 相关方法</p>
+<p><img src="http://typa.qingyun.run/img/0020.png" alt="img"></p>
+<h3 id="ServerSocketChannel">ServerSocketChannel</h3>
+<ol>
+<li><code>ServerSocketChannel</code> 在服务器端监听新的客户端 <code>Socket</code> 连接，负责监听，不负责实际的读写操作</li>
+<li>相关方法如下</li>
+</ol>
+<p><img src="http://typa.qingyun.run/img/0021.png" alt="img"></p>
+<h3 id="SocketChannel">SocketChannel</h3>
+<ol>
+<li><code>SocketChannel</code>，网络 <code>IO</code> 通道，<strong>具体负责进行读写操作</strong>。<code>NIO</code> 把缓冲区的数据写入通道，或者把通道里的数据读到缓冲区。</li>
+<li>相关方法如下</li>
+</ol>
+<p><img src="http://typa.qingyun.run/img/0022.png" alt="img"></p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a><a class="post-meta__tags" href="/tags/netty/">netty</a><a class="post-meta__tags" href="/tags/%E9%A3%8E%E7%A5%88%E7%9A%84%E6%97%B6%E5%85%89%E5%BD%95/">风祈的时光录</a></div><div class="post_share"><div class="social-share" data-image="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/2812335140/"><img class="prev-cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">从B站学习的Netty02</div></div></a></div><div class="next-post pull-right"><a href="/posts/756143886/"><img class="next-cover" src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">JAVA实现图片合并</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/2812335140/" title="从B站学习的Netty02"><img class="cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty02</div></div></a></div><div><a href="/posts/3500663986/" title="从B站学习的Netty03"><img class="cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty03</div></div></a></div><div><a href="/posts/1321431313/" title="从B站学习的Netty04"><img class="cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty04</div></div></a></div><div><a href="/posts/2697793597/" title="从B站学习的Netty06"><img class="cover" src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty06</div></div></a></div><div><a href="/posts/969163143/" title="从B站学习的Netty05"><img class="cover" src="http://typa.qingyun.run/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty05</div></div></a></div><div><a href="/posts/3620348075/" title="从B站学习的Netty07"><img class="cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty07</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.ibb.co/y4NkVrm/qingyun.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Qing Yun</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/liuzheng2000" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1553385162&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">梦想开始之地</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Selector%EF%BC%88%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">Selector（选择器）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">基本介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Selector-%E7%A4%BA%E6%84%8F%E5%9B%BE%E5%92%8C%E7%89%B9%E7%82%B9%E8%AF%B4%E6%98%8E"><span class="toc-number">3.</span> <span class="toc-text">Selector 示意图和特点说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Selector-%E7%B1%BB%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">Selector 类相关方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">5.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SelectionKey"><span class="toc-number">6.</span> <span class="toc-text">SelectionKey</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ServerSocketChannel"><span class="toc-number">7.</span> <span class="toc-text">ServerSocketChannel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SocketChannel"><span class="toc-number">8.</span> <span class="toc-text">SocketChannel</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/3501514868/" title="20211203"><img src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="20211203"/></a><div class="content"><a class="title" href="/posts/3501514868/" title="20211203">20211203</a><time datetime="2021-12-03T01:51:36.000Z" title="发表于 2021-12-03 09:51:36">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1584270459/" title="从B站学习的Netty18"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty18"/></a><div class="content"><a class="title" href="/posts/1584270459/" title="从B站学习的Netty18">从B站学习的Netty18</a><time datetime="2021-12-03T00:51:16.000Z" title="发表于 2021-12-03 08:51:16">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3469808106/" title="从B站学习的Netty17"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty17"/></a><div class="content"><a class="title" href="/posts/3469808106/" title="从B站学习的Netty17">从B站学习的Netty17</a><time datetime="2021-12-03T00:50:50.000Z" title="发表于 2021-12-03 08:50:50">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3117818236/" title="从B站学习的Netty16"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty16"/></a><div class="content"><a class="title" href="/posts/3117818236/" title="从B站学习的Netty16">从B站学习的Netty16</a><time datetime="2021-12-03T00:50:22.000Z" title="发表于 2021-12-03 08:50:22">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/551514310/" title="从B站学习的Netty15"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty15"/></a><div class="content"><a class="title" href="/posts/551514310/" title="从B站学习的Netty15">从B站学习的Netty15</a><time datetime="2021-12-03T00:49:40.000Z" title="发表于 2021-12-03 08:49:40">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1473790032/" title="从B站学习的Netty14"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty14"/></a><div class="content"><a class="title" href="/posts/1473790032/" title="从B站学习的Netty14">从B站学习的Netty14</a><time datetime="2021-12-01T02:13:16.000Z" title="发表于 2021-12-01 10:13:16">2021-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3384595955/" title="从B站学习的Netty13"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty13"/></a><div class="content"><a class="title" href="/posts/3384595955/" title="从B站学习的Netty13">从B站学习的Netty13</a><time datetime="2021-12-01T02:12:34.000Z" title="发表于 2021-12-01 10:12:34">2021-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1052410200/" title="20211201"><img src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="20211201"/></a><div class="content"><a class="title" href="/posts/1052410200/" title="20211201">20211201</a><time datetime="2021-12-01T02:06:50.000Z" title="发表于 2021-12-01 10:06:50">2021-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3199984997/" title="从B站学习的Netty12"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty12"/></a><div class="content"><a class="title" href="/posts/3199984997/" title="从B站学习的Netty12">从B站学习的Netty12</a><time datetime="2021-11-30T05:06:03.000Z" title="发表于 2021-11-30 13:06:03">2021-11-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/666023135/" title="从B站学习的Netty11"><img src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty11"/></a><div class="content"><a class="title" href="/posts/666023135/" title="从B站学习的Netty11">从B站学习的Netty11</a><time datetime="2021-11-30T05:04:19.000Z" title="发表于 2021-11-30 13:04:19">2021-11-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://img-baofun.zhhainiao.com/pcwallpaper_ugc/preview_jpg/19367cbcf3b03cc253455b4208074d76.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 By Qing Yun</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">青云小栈</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'qingyun-7gmjbhk1be9df68d',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'qingyun-7gmjbhk1be9df68d',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'qingyun-7gmjbhk1be9df68d',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

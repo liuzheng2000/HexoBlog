@@ -1,0 +1,583 @@
+<!DOCTYPE html><html lang="zh_CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mysql数据库课程 Md文档 | 青云小栈</title><meta name="keywords" content="Mysql,数据库"><meta name="author" content="Qing Yun"><meta name="copyright" content="Qing Yun"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="数据库 123456789CREATE TABLE IF NOT EXISTS &#96;Student&#96;(   &#96;ID&#96; INT UNSIGNED AUTO_INCREMENT,  -- 序号   &#96;Stu_ID&#96; VARCHAR(100) NOT NULL ,   -- 学号   &#96;Stu_NAME&#96; VARCHAR(100)  ,   -- 姓名   &#96;Stu_CourseID&#96; VARCHAR(1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql数据库课程 Md文档">
+<meta property="og:url" content="http://qingyun.run/posts/2655269665/index.html">
+<meta property="og:site_name" content="青云小栈">
+<meta property="og:description" content="数据库 123456789CREATE TABLE IF NOT EXISTS &#96;Student&#96;(   &#96;ID&#96; INT UNSIGNED AUTO_INCREMENT,  -- 序号   &#96;Stu_ID&#96; VARCHAR(100) NOT NULL ,   -- 学号   &#96;Stu_NAME&#96; VARCHAR(100)  ,   -- 姓名   &#96;Stu_CourseID&#96; VARCHAR(1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://typa.qingyun.run/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun">
+<meta property="article:published_time" content="2021-11-29T02:39:20.000Z">
+<meta property="article:modified_time" content="2021-11-29T02:45:18.379Z">
+<meta property="article:author" content="Qing Yun">
+<meta property="article:tag" content="Mysql">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://typa.qingyun.run/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun"><link rel="shortcut icon" href="http://typa.qingyun.run/img/1.png?x-oss-process=style/qingyun"><link rel="canonical" href="http://qingyun.run/posts/2655269665/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9d0182a84d5490eb50c4c6666812e629";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":60,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Qing Yun","link":"链接: ","source":"来源: 青云小栈","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Mysql数据库课程 Md文档',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-11-29 10:45:18'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2969026_lqb1y9vjt3.css"><link rel="stylesheet" href="http://cdn.qingyun.run/HexoIndex.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.ibb.co/y4NkVrm/qingyun.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 测试</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qingyun/"><i class="fa-fw iconfont icon-test"></i><span> 青云</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://typa.qingyun.run/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">青云小栈</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 测试</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qingyun/"><i class="fa-fw iconfont icon-test"></i><span> 青云</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Mysql数据库课程 Md文档</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-29T02:39:20.000Z" title="发表于 2021-11-29 10:39:20">2021-11-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-29T02:45:18.379Z" title="更新于 2021-11-29 10:45:18">2021-11-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/Mysql/">Mysql</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Mysql数据库课程 Md文档"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="数据库">数据库</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> `Student`(</span><br><span class="line">   `ID` <span class="type">INT</span> UNSIGNED AUTO_INCREMENT,  <span class="comment">-- 序号</span></span><br><span class="line">   `Stu_ID` <span class="type">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> ,   <span class="comment">-- 学号</span></span><br><span class="line">   `Stu_NAME` <span class="type">VARCHAR</span>(<span class="number">100</span>)  ,   <span class="comment">-- 姓名</span></span><br><span class="line">   `Stu_CourseID` <span class="type">VARCHAR</span>(<span class="number">100</span>) ,  <span class="comment">-- 课程号</span></span><br><span class="line">   `Stu_Grade` <span class="type">VARCHAR</span>(<span class="number">40</span>) ,  <span class="comment">-- 成绩</span></span><br><span class="line">   <span class="keyword">PRIMARY</span> KEY ( `ID` )</span><br><span class="line">)ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student ( Stu_ID, Stu_NAME,Stu_CourseID,Stu_Grade )</span><br><span class="line">                      <span class="keyword">VALUES</span></span><br><span class="line">                    ( <span class="number">181114930</span>, <span class="string">&#x27;小青&#x27;</span>,<span class="number">036611</span>,<span class="number">90</span>),</span><br><span class="line">                    ( <span class="number">181114930</span>, <span class="string">&#x27;小青&#x27;</span>,<span class="number">036612</span>,<span class="number">50</span>),</span><br><span class="line">                    ( <span class="number">181114931</span>, <span class="string">&#x27;小红&#x27;</span>,<span class="number">036612</span>,<span class="number">82</span>),</span><br><span class="line">                    ( <span class="number">181114932</span>, <span class="string">&#x27;小蓝&#x27;</span>,<span class="number">036613</span>,<span class="number">85</span>); </span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> `Teacher`(</span><br><span class="line">   `ID` <span class="type">INT</span> UNSIGNED AUTO_INCREMENT,  <span class="comment">-- 序号</span></span><br><span class="line">   `Tea_ID` <span class="type">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> ,   <span class="comment">-- 教师学号</span></span><br><span class="line">   `Tea_NAME` <span class="type">VARCHAR</span>(<span class="number">100</span>)  ,   <span class="comment">-- 教师姓名</span></span><br><span class="line">   `Tea_CourseID` <span class="type">VARCHAR</span>(<span class="number">100</span>),  <span class="comment">-- 教授课程编号</span></span><br><span class="line">   <span class="keyword">PRIMARY</span> KEY ( `ID` )</span><br><span class="line">)ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Teacher ( Tea_ID, Tea_NAME,Tea_CourseID )</span><br><span class="line">                       <span class="keyword">VALUES</span></span><br><span class="line">                       ( <span class="number">159850</span>, <span class="string">&#x27;王倩&#x27;</span>,<span class="number">036611</span>),</span><br><span class="line">                       ( <span class="number">159850</span>, <span class="string">&#x27;王倩&#x27;</span>,<span class="number">036612</span>),</span><br><span class="line">                       ( <span class="number">159850</span>, <span class="string">&#x27;王倩&#x27;</span>,<span class="number">036613</span>),</span><br><span class="line">                       ( <span class="number">159851</span>, <span class="string">&#x27;王宇&#x27;</span>,<span class="number">036611</span>),</span><br><span class="line">                       ( <span class="number">159852</span>, <span class="string">&#x27;王宇&#x27;</span>,<span class="number">036612</span>),</span><br><span class="line">                       ( <span class="number">159853</span>, <span class="string">&#x27;王刚&#x27;</span>,<span class="number">036613</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> `Course`(</span><br><span class="line">   `Cour_ID` <span class="type">VARCHAR</span>(<span class="number">100</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> ,   <span class="comment">-- 课程编号</span></span><br><span class="line">   `Cour_NAME` <span class="type">VARCHAR</span>(<span class="number">100</span>) ,   <span class="comment">-- 课程科目</span></span><br><span class="line">   <span class="keyword">PRIMARY</span> KEY ( `Cour_ID` )</span><br><span class="line">)ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course ( Cour_ID, Cour_NAME)</span><br><span class="line">                       <span class="keyword">VALUES</span></span><br><span class="line">                       ( <span class="number">036611</span>, <span class="string">&#x27;物理&#x27;</span> );</span><br><span class="line">                       </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course ( Cour_ID, Cour_NAME)</span><br><span class="line">                       <span class="keyword">VALUES</span></span><br><span class="line">                       ( <span class="number">036612</span>, <span class="string">&#x27;生物&#x27;</span> );</span><br><span class="line">                       </span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Course ( Cour_ID, Cour_NAME)</span><br><span class="line">                       <span class="keyword">VALUES</span></span><br><span class="line">                       ( <span class="number">036613</span>, <span class="string">&#x27;化学&#x27;</span> );</span><br></pre></td></tr></table></figure>
+<h2 id="数据库导入">数据库导入</h2>
+<ul>
+<li>
+<p>数据库导入</p>
+<ul>
+<li><img src="http://typa.qingyun.run/img/image-20210902191100639.png" alt="image-20210902191100639"></li>
+</ul>
+</li>
+<li>
+<p>选择导入向导</p>
+</li>
+<li>
+<p>选择Excel文件</p>
+</li>
+<li>
+<p>选择文件位置</p>
+</li>
+<li>
+<p>后续基本就是直接导入</p>
+</li>
+<li>
+<p>如图</p>
+</li>
+<li>
+<p><img src="http://typa.qingyun.run/img/image-20210902191403193.png" alt="image-20210902191403193"></p>
+</li>
+</ul>
+<p><img src="http://typa.qingyun.run/img/image-20210902191532235.png" alt="image-20210902191532235"></p>
+<p>头名不建议使用中文，后续手动修改</p>
+<h2 id="数据库查询">数据库查询</h2>
+<p>例如：查询学号为181114930的课程名称</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.Stu_NAME,b.Cour_Name</span><br><span class="line"><span class="keyword">from</span> student a <span class="keyword">left</span> <span class="keyword">join</span> course b <span class="keyword">on</span> a.Stu_CourseID <span class="operator">=</span> b.Cour_ID</span><br><span class="line"><span class="keyword">where</span> Stu_ID <span class="operator">=</span> <span class="string">&#x27;181114930&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>例如：查询各个老师旗下学生的名字(老师教授课程与学生选报的课程)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">distinct</span> a.Tea_Name ,c.Stu_Name </span><br><span class="line"><span class="keyword">from</span> Teacher a </span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> course b <span class="keyword">on</span> a.Tea_CourseID  <span class="operator">=</span> b.Cour_ID</span><br><span class="line"><span class="keyword">left</span> <span class="keyword">join</span> student c <span class="keyword">on</span> b.Cour_ID <span class="operator">=</span>  c.Stu_CourseID </span><br></pre></td></tr></table></figure>
+<p>例如：查询各个科目的平均分且按照科目的平均分降序排列</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> b.Cour_NAME , <span class="built_in">AVG</span>(a.Stu_Grade) <span class="keyword">as</span> Stu_Grade </span><br><span class="line"><span class="keyword">from</span> Student a </span><br><span class="line"><span class="keyword">LEFT</span> <span class="keyword">JOIN</span> Course b <span class="keyword">on</span> a.Stu_CourseID <span class="operator">=</span> b.Cour_ID</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> Stu_CourseID,Cour_NAME</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> Stu_Grade <span class="keyword">DESC</span></span><br></pre></td></tr></table></figure>
+<p>例如：计算学生的平均分(传入值为学号)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">delimiter $</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> stu_AvgGrade(<span class="keyword">in</span> StudentID <span class="type">varchar</span>(<span class="number">100</span>))</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">    <span class="keyword">select</span> <span class="built_in">avg</span>(Stu_Grade)  <span class="keyword">from</span> Student <span class="keyword">where</span> Stu_ID <span class="operator">=</span> StudentID;</span><br><span class="line"><span class="keyword">end</span> $</span><br><span class="line"></span><br><span class="line">delimiter ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">call</span> stu_AvgGrade(<span class="string">&#x27;181114930&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="简历触发器">简历触发器</h2>
+<p>创建测试表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> `triggertest`(</span><br><span class="line">   `ID` <span class="type">INT</span> ,  <span class="comment">-- 序号</span></span><br><span class="line">    `Name` <span class="type">varchar</span>(<span class="number">100</span>), <span class="comment">-- 名字</span></span><br><span class="line">   `createDate` datetime ,   <span class="comment">-- 创建时间</span></span><br><span class="line">  `updateDate` datetime    <span class="comment">-- 修改时间</span></span><br><span class="line">)ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8;</span><br></pre></td></tr></table></figure>
+<p>查询所有触发器（当前库）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> TRIGGERS</span><br></pre></td></tr></table></figure>
+<p>建立触发器（插入数据时，自动生成插入的时间）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER $$</span><br><span class="line"> </span><br><span class="line"><span class="keyword">CREATE</span></span><br><span class="line">    <span class="keyword">TRIGGER</span> `create_time` BEFORE <span class="keyword">INSERT</span></span><br><span class="line">    <span class="keyword">ON</span> `triggertest`</span><br><span class="line">    <span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="type">ROW</span> <span class="keyword">BEGIN</span></span><br><span class="line">	<span class="keyword">SET</span> new.createDate<span class="operator">=</span>NOW();</span><br><span class="line">    <span class="keyword">END</span>$$</span><br><span class="line"> </span><br><span class="line">DELIMITER ;</span><br></pre></td></tr></table></figure>
+<p>修改数据时，自动生成修改的时间</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">DELIMITER $$</span><br><span class="line"> </span><br><span class="line"><span class="keyword">CREATE</span></span><br><span class="line">    <span class="keyword">TRIGGER</span> `update_time` BEFORE UPDATE</span><br><span class="line">    <span class="keyword">ON</span> `triggertest`</span><br><span class="line">    <span class="keyword">FOR</span> <span class="keyword">EACH</span> <span class="type">ROW</span> <span class="keyword">BEGIN</span></span><br><span class="line">	<span class="keyword">SET</span> new.updateDate<span class="operator">=</span>NOW();</span><br><span class="line">    <span class="keyword">END</span>$$</span><br><span class="line"> </span><br><span class="line">DELIMITER ;</span><br></pre></td></tr></table></figure>
+<h2 id="数据库定时备份">数据库定时备份</h2>
+<ul>
+<li>
+<p>优先执行一次全量备份(此处为导出数据库的所有数据结构与数据内容)</p>
+</li>
+<li>
+<pre><code class="language-bash">D:\mysql-8.0.18-winx64\mysql-8.0.20-winx64\mysql-8.0.20-winx64\bin\mysqldump --flush-logs --single-transaction --master-data=2 -u root -p test_db  &gt; D:\mysql-8.0.18-winx64\mysql-8.0.20-winx64\mysql-8.0.20-winx64\log\backup.sql
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+    参数 --lock-all-tables
+
+对于InnoDB将替换为 --single-transaction。
+该选项在导出数据之前提交一个 BEGIN SQL语句，BEGIN 不会阻塞任何应用程序且能保证导出时数据库的一致性状态。它只适用于事务表，例如 InnoDB 和 BDB。本选项和 --lock-tables 选项是互斥的，因为 LOCK TABLES 会使任何挂起的事务隐含提交。要想导出大表的话，应结合使用 --quick 选项。
+
+    参数 --flush-logs，结束当前日志，生成并使用新日志文件
+
+    参数 --master-data=2，该选项将会在输出SQL中记录下完全备份后新日志文件的名称，用于日后恢复时参考，例如输出的备份SQL文件中含有：CHANGE MASTER TO MASTER_LOG_FILE='MySQL-bin.000002', MASTER_LOG_POS=106;
+
+    参数 test，该处的test表示数据库test，如果想要将所有的数据库备份，可以换成参数 --all-databases
+
+    参数 --databases 指定多个数据库
+
+    参数 --quick或-q，该选项在导出大表时很有用，它强制 MySQLdump 从服务器查询取得记录直接输出而不是取得所有记录后将它们缓存到内存中。
+
+    参数 --ignore-table，忽略某个数据表，如 --ignore-table test.user 忽略数据库test里的user表
+
+    更多mysqldump 参数，请参考网址
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- 全量数据库恢复</span><br><span class="line"></span><br><span class="line">- ```sql</span><br><span class="line">  D:\mysql-8.0.18-winx64\mysql-8.0.20-winx64\mysql-8.0.20-winx64\bin\mysql -u  root  -proot test_db   &lt;  D:\mysql-8.0.18-winx64\mysql-8.0.20-winx64\mysql-8.0.20-winx64\log\backup.sql</span><br></pre></td></tr></table></figure>
+
+</code></pre>
+</li>
+</ul>
+<p>查询当前数据库日志版本</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> master status;</span><br></pre></td></tr></table></figure>
+<p>刷新增量日志版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\mysql-8.0.18-winx64\mysql-8.0.20-winx64\mysql-8.0.20-winx64\bin\mysqladmin -uroot -proot flush-logs</span><br></pre></td></tr></table></figure>
+<p>恢复日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\mysql-8.0.18-winx64\mysql-8.0.20-winx64\mysql-8.0.20-winx64\bin\mysqlbinlog --no-defaults D:\mysql-8.0.18-winx64\mysql-8.0.20-winx64\mysql-8.0.20-winx64\data\binlog.000003 | D:\mysql-8.0.18-winx64\mysql-8.0.20-winx64\mysql-8.0.20-winx64\bin\mysql -uroot -proot test_db</span><br></pre></td></tr></table></figure>
+<h2 id="数据库索引">数据库索引</h2>
+<ul>
+<li>
+<p>通过存储过程批量插入数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">delimiter $</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> InstertData(<span class="keyword">in</span> Num <span class="type">int</span>(<span class="number">10</span>))</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line"><span class="keyword">declare</span> i <span class="type">int</span>;</span><br><span class="line"><span class="keyword">set</span> i<span class="operator">=</span><span class="number">1</span>;</span><br><span class="line">while  i <span class="operator">&lt;</span> Num  do</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> initdata(Sno) <span class="keyword">values</span>(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">set</span>  i<span class="operator">=</span>i<span class="operator">+</span><span class="number">1</span>;</span><br><span class="line"><span class="keyword">end</span> while ;</span><br><span class="line"><span class="keyword">end</span> $</span><br><span class="line">delimiter ;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>数据库索引</p>
+<p>可以采用导入的数据</p>
+<p>执行语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> a.major,a.instructor,a.SName <span class="keyword">from</span> initdata a <span class="keyword">where</span> major <span class="operator">=</span> &quot;会计学&quot; <span class="keyword">and</span> instructor <span class="operator">=</span> &quot;靳祺&quot; </span><br></pre></td></tr></table></figure>
+<p><img src="http://typa.qingyun.run/img/image-20210902211120473.png" alt="image-20210902211120473"></p>
+</li>
+</ul>
+<p>不建立索引的情况下  执行时间为0.44s</p>
+<p>建立聚合索引</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> index selectName <span class="keyword">On</span> indata(major,instructor,SName)</span><br></pre></td></tr></table></figure>
+<p><img src="http://typa.qingyun.run/img/image-20210902211314332.png" alt="image-20210902211314332"></p>
+<p>符合索引条件</p>
+<p>执行时间为0.25s</p>
+<p>近一倍的时间差值</p>
+<p>索引在工作中非常重要，但是难以学习，需要花费很深的功夫去研究！（mysql 优化机制 ）</p>
+<h2 id="增量备份">增量备份</h2>
+<h3 id="增量备份-2">增量备份</h3>
+<h4 id="1-检查log-bin是否开启">1. 检查log_bin是否开启</h4>
+<p>进入mysql命令行，执行 <code>show variables like '%log_bin%' </code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%log_bin%&#x27;;</span><br><span class="line">+---------------------------------+-------+</span><br><span class="line">| Variable_name                   | Value |</span><br><span class="line">+---------------------------------+-------+</span><br><span class="line">| log_bin                         | OFF   |</span><br><span class="line">| log_bin_basename                |       |</span><br><span class="line">| log_bin_index                   |       |</span><br><span class="line">| log_bin_trust_function_creators | OFF   |</span><br><span class="line">| log_bin_use_v1_row_events       | OFF   |</span><br><span class="line">| sql_log_bin                     | ON    |</span><br><span class="line">+---------------------------------+-------+</span><br><span class="line">6 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+<p>如上所示，log_bin 未开启；如果log_bin开启，则跳过第2步，直接进入第3步。</p>
+<h4 id="2-开启-log-bin，并重启mysql">2. 开启 log_bin，并重启mysql</h4>
+<ul>
+<li>编辑 mysql 的配置文件 <code>vim /etc/my.cnf</code>，在 mysqld 下面添加下面2条配置</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">log-bin=/var/lib/mysql/mysql-bin</span><br><span class="line">server_id=152</span><br></pre></td></tr></table></figure>
+<p>Tip1: 一定要加 server_id，否则会报错。至于server_id的值，随便设就可以。<br>
+Tip2: log_bin 中间可以下划线_相连，也可以-减号相连。同理server_id也一样。</p>
+<ul>
+<li>重启mysql</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
+<ul>
+<li>再次在mysql命令行中执行 <code>show variables like '%log_bin%'</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &#x27;%log_bin%&#x27;;</span><br><span class="line">+---------------------------------+--------------------------------+</span><br><span class="line">| Variable_name                   | Value                          |</span><br><span class="line">+---------------------------------+--------------------------------+</span><br><span class="line">| log_bin                         | ON                             |</span><br><span class="line">| log_bin_basename                | /var/lib/mysql/mysql-bin       |</span><br><span class="line">| log_bin_index                   | /var/lib/mysql/mysql-bin.index |</span><br><span class="line">| log_bin_trust_function_creators | OFF                            |</span><br><span class="line">| log_bin_use_v1_row_events       | OFF                            |</span><br><span class="line">| sql_log_bin                     | ON                             |</span><br><span class="line">+---------------------------------+--------------------------------+</span><br><span class="line">6 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+<h2 id="SQL">SQL</h2>
+<p>/*<br>
+Navicat Premium Data Transfer</p>
+<p>Source Server         : mysql<br>
+Source Server Type    : MySQL<br>
+Source Server Version : 80020<br>
+Source Host           : localhost:3306<br>
+Source Schema         : test_db</p>
+<p>Target Server Type    : MySQL<br>
+Target Server Version : 80020<br>
+File Encoding         : 65001</p>
+<p>Date: 02/09/2021 19:31:31<br>
+*/</p>
+<p>SET NAMES utf8mb4;<br>
+SET FOREIGN_KEY_CHECKS = 0;</p>
+<hr>
+<p>– Table structure for data</p>
+<hr>
+<p>DROP TABLE IF EXISTS <code>data</code>;<br>
+CREATE TABLE <code>data</code>  (<br>
+<code>ID</code> varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,<br>
+<code>major</code> varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,<br>
+<code>instructor</code> varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,<br>
+<code>instructor_Tell</code> varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,<br>
+<code>class</code> varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,<br>
+<code>Sno</code> varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,<br>
+<code>SName</code> varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,<br>
+<code>SParentName</code> varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,<br>
+<code>address</code> varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL<br>
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin ROW_FORMAT = Dynamic;</p>
+<p>SET FOREIGN_KEY_CHECKS = 1;</p>
+<h2 id="Mysql全量备份">Mysql全量备份</h2>
+<p>D:\mysql-8.0.18-winx64\mysql-8.0.20-winx64\mysql-8.0.20-winx64\bin\mysqldump --flush-logs --single-transaction --master-data=3 -u root -proot test_db  &gt; D:\mysql-8.0.18-winx64\mysql-8.0.20-winx64\mysql-8.0.20-winx64\log\backup.sql</p>
+<h2 id="mysql增量备份">mysql增量备份</h2>
+<p>D:\mysql-8.0.18-winx64\mysql-8.0.20-winx64\mysql-8.0.20-winx64\bin\mysqladmin -uroot -proot flush-logs</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Qing Yun</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://qingyun.run/posts/2655269665/">http://qingyun.run/posts/2655269665/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://qingyun.run" target="_blank">青云小栈</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Mysql/">Mysql</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></div><div class="post_share"><div class="social-share" data-image="http://typa.qingyun.run/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/1624661076/"><img class="prev-cover" src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">20211130</div></div></a></div><div class="next-post pull-right"><a href="/posts/3330459815/"><img class="next-cover" src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Mysql讲解 课程大纲设计</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/3330459815/" title="Mysql讲解 课程大纲设计"><img class="cover" src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">Mysql讲解 课程大纲设计</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.ibb.co/y4NkVrm/qingyun.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Qing Yun</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/liuzheng2000" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1553385162&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">梦想开始之地</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-number">1.</span> <span class="toc-text">数据库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%BC%E5%85%A5"><span class="toc-number">2.</span> <span class="toc-text">数据库导入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2"><span class="toc-number">3.</span> <span class="toc-text">数据库查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8E%86%E8%A7%A6%E5%8F%91%E5%99%A8"><span class="toc-number">4.</span> <span class="toc-text">简历触发器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%9A%E6%97%B6%E5%A4%87%E4%BB%BD"><span class="toc-number">5.</span> <span class="toc-text">数据库定时备份</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95"><span class="toc-number">6.</span> <span class="toc-text">数据库索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">7.</span> <span class="toc-text">增量备份</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD-2"><span class="toc-number">7.1.</span> <span class="toc-text">增量备份</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%A3%80%E6%9F%A5log-bin%E6%98%AF%E5%90%A6%E5%BC%80%E5%90%AF"><span class="toc-number">7.1.1.</span> <span class="toc-text">1. 检查log_bin是否开启</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%BC%80%E5%90%AF-log-bin%EF%BC%8C%E5%B9%B6%E9%87%8D%E5%90%AFmysql"><span class="toc-number">7.1.2.</span> <span class="toc-text">2. 开启 log_bin，并重启mysql</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL"><span class="toc-number">8.</span> <span class="toc-text">SQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mysql%E5%85%A8%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">9.</span> <span class="toc-text">Mysql全量备份</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">10.</span> <span class="toc-text">mysql增量备份</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/3501514868/" title="20211203"><img src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="20211203"/></a><div class="content"><a class="title" href="/posts/3501514868/" title="20211203">20211203</a><time datetime="2021-12-03T01:51:36.000Z" title="发表于 2021-12-03 09:51:36">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1584270459/" title="从B站学习的Netty18"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty18"/></a><div class="content"><a class="title" href="/posts/1584270459/" title="从B站学习的Netty18">从B站学习的Netty18</a><time datetime="2021-12-03T00:51:16.000Z" title="发表于 2021-12-03 08:51:16">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3469808106/" title="从B站学习的Netty17"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty17"/></a><div class="content"><a class="title" href="/posts/3469808106/" title="从B站学习的Netty17">从B站学习的Netty17</a><time datetime="2021-12-03T00:50:50.000Z" title="发表于 2021-12-03 08:50:50">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3117818236/" title="从B站学习的Netty16"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty16"/></a><div class="content"><a class="title" href="/posts/3117818236/" title="从B站学习的Netty16">从B站学习的Netty16</a><time datetime="2021-12-03T00:50:22.000Z" title="发表于 2021-12-03 08:50:22">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/551514310/" title="从B站学习的Netty15"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty15"/></a><div class="content"><a class="title" href="/posts/551514310/" title="从B站学习的Netty15">从B站学习的Netty15</a><time datetime="2021-12-03T00:49:40.000Z" title="发表于 2021-12-03 08:49:40">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1473790032/" title="从B站学习的Netty14"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty14"/></a><div class="content"><a class="title" href="/posts/1473790032/" title="从B站学习的Netty14">从B站学习的Netty14</a><time datetime="2021-12-01T02:13:16.000Z" title="发表于 2021-12-01 10:13:16">2021-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3384595955/" title="从B站学习的Netty13"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty13"/></a><div class="content"><a class="title" href="/posts/3384595955/" title="从B站学习的Netty13">从B站学习的Netty13</a><time datetime="2021-12-01T02:12:34.000Z" title="发表于 2021-12-01 10:12:34">2021-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1052410200/" title="20211201"><img src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="20211201"/></a><div class="content"><a class="title" href="/posts/1052410200/" title="20211201">20211201</a><time datetime="2021-12-01T02:06:50.000Z" title="发表于 2021-12-01 10:06:50">2021-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3199984997/" title="从B站学习的Netty12"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty12"/></a><div class="content"><a class="title" href="/posts/3199984997/" title="从B站学习的Netty12">从B站学习的Netty12</a><time datetime="2021-11-30T05:06:03.000Z" title="发表于 2021-11-30 13:06:03">2021-11-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/666023135/" title="从B站学习的Netty11"><img src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty11"/></a><div class="content"><a class="title" href="/posts/666023135/" title="从B站学习的Netty11">从B站学习的Netty11</a><time datetime="2021-11-30T05:04:19.000Z" title="发表于 2021-11-30 13:04:19">2021-11-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://img-baofun.zhhainiao.com/pcwallpaper_ugc/preview_jpg/19367cbcf3b03cc253455b4208074d76.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 By Qing Yun</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">青云小栈</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'qingyun-7gmjbhk1be9df68d',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'qingyun-7gmjbhk1be9df68d',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'qingyun-7gmjbhk1be9df68d',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

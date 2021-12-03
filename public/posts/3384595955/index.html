@@ -1,0 +1,564 @@
+<!DOCTYPE html><html lang="zh_CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>从B站学习的Netty13 | 青云小栈</title><meta name="keywords" content="转载,netty,风祈的时光录"><meta name="author" content="Qing Yun"><meta name="copyright" content="Qing Yun"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="转载: https:&#x2F;&#x2F;imlql.cn&#x2F; Netty 核心模块组件 Bootstrap、ServerBootstrap   Bootstrap 意思是引导，一个 Netty 应用通常由一个 Bootstrap 开始，主要作用是配置整个 Netty 程序，串联各个组件，Netty 中 Bootstrap 类是客户端程序的启动引导类，ServerBootstrap 是服务端启动引导类。   常见的方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从B站学习的Netty13">
+<meta property="og:url" content="http://qingyun.run/posts/3384595955/index.html">
+<meta property="og:site_name" content="青云小栈">
+<meta property="og:description" content="转载: https:&#x2F;&#x2F;imlql.cn&#x2F; Netty 核心模块组件 Bootstrap、ServerBootstrap   Bootstrap 意思是引导，一个 Netty 应用通常由一个 Bootstrap 开始，主要作用是配置整个 Netty 程序，串联各个组件，Netty 中 Bootstrap 类是客户端程序的启动引导类，ServerBootstrap 是服务端启动引导类。   常见的方">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E">
+<meta property="article:published_time" content="2021-12-01T02:12:34.000Z">
+<meta property="article:modified_time" content="2021-12-01T02:13:07.390Z">
+<meta property="article:author" content="Qing Yun">
+<meta property="article:tag" content="转载">
+<meta property="article:tag" content="netty">
+<meta property="article:tag" content="风祈的时光录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E"><link rel="shortcut icon" href="http://typa.qingyun.run/img/1.png?x-oss-process=style/qingyun"><link rel="canonical" href="http://qingyun.run/posts/3384595955/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9d0182a84d5490eb50c4c6666812e629";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":60,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Qing Yun","link":"链接: ","source":"来源: 青云小栈","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '从B站学习的Netty13',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-01 10:13:07'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2969026_lqb1y9vjt3.css"><link rel="stylesheet" href="http://cdn.qingyun.run/HexoIndex.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.ibb.co/y4NkVrm/qingyun.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 测试</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qingyun/"><i class="fa-fw iconfont icon-test"></i><span> 青云</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">青云小栈</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 测试</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qingyun/"><i class="fa-fw iconfont icon-test"></i><span> 青云</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">从B站学习的Netty13</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-01T02:12:34.000Z" title="发表于 2021-12-01 10:12:34">2021-12-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-01T02:13:07.390Z" title="更新于 2021-12-01 10:13:07">2021-12-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/">转载</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%BD%AC%E8%BD%BD/netty/">netty</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="从B站学习的Netty13"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>转载: <a target="_blank" rel="noopener" href="https://imlql.cn/">https://imlql.cn/</a></p>
+<h1>Netty 核心模块组件</h1>
+<h2 id="Bootstrap、ServerBootstrap">Bootstrap、ServerBootstrap</h2>
+<ol>
+<li>
+<p><code>Bootstrap</code> 意思是引导，一个 <code>Netty</code> 应用通常由一个 <code>Bootstrap</code> 开始，主要作用是配置整个 <code>Netty</code> 程序，串联各个组件，<code>Netty</code> 中 <code>Bootstrap</code> 类是客户端程序的启动引导类，<code>ServerBootstrap</code> 是服务端启动引导类。</p>
+</li>
+<li>
+<p>常见的方法有</p>
+<ul>
+<li>
+<p><code>public ServerBootstrap group(EventLoopGroup parentGroup, EventLoopGroup childGroup)</code>，该方法用于服务器端，用来设置两个 <code>EventLoop</code></p>
+</li>
+<li>
+<p><code>public B group(EventLoopGroup group)</code>，该方法用于客户端，用来设置一个 <code>EventLoop</code></p>
+</li>
+<li>
+<p><code>public B channel(Class&lt;? extends C&gt; channelClass)</code>，该方法用来设置一个服务器端的通道实现</p>
+</li>
+<li>
+<p><code>public &lt;T&gt; B option(ChannelOption&lt;T&gt; option, T value)</code>，用来给 <code>ServerChannel</code> 添加配置</p>
+</li>
+<li>
+<p><code>public &lt;T&gt; ServerBootstrap childOption(ChannelOption&lt;T&gt; childOption, T value)</code>，用来给接收到的通道添加配置</p>
+</li>
+<li>
+<p><code>public ServerBootstrap childHandler(ChannelHandler childHandler)</code>，该方法用来设置业务处理类（自定义的<code>handler</code>）</p>
+</li>
+<li>
+<p><code>public ChannelFuture bind(int inetPort)</code>，该方法用于服务器端，用来设置占用的端口号</p>
+</li>
+<li>
+<p><code>public ChannelFuture connect(String inetHost, int inetPort)</code>，该方法用于客户端，用来连接服务器端</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="Future、ChannelFuture">Future、ChannelFuture</h2>
+<p><code>Netty</code> 中所有的 <code>IO</code> 操作都是异步的，不能立刻得知消息是否被正确处理。但是可以过一会等它执行完成或者直接注册一个监听，具体的实现就是通过 <code>Future</code> 和 <code>ChannelFutures</code>，他们可以注册一个监听，当操作执行成功或失败时监听会自动触发注册的监听事件</p>
+<p>常见的方法有</p>
+<ul>
+<li><code>Channel channel()</code>，返回当前正在进行 <code>IO</code> 操作的通道</li>
+<li><code>ChannelFuture sync()</code>，等待异步操作执行完毕 （同步转异步）</li>
+</ul>
+<h2 id="Channel">Channel</h2>
+<ol>
+<li>
+<p><code>Netty</code> 网络通信的组件，能够用于执行网络 <code>I/O</code> 操作。</p>
+</li>
+<li>
+<p>通过 <code>Channel</code> 可获得当前网络连接的通道的状态</p>
+</li>
+<li>
+<p>通过 <code>Channel</code> 可获得网络连接的配置参数（例如接收缓冲区大小）</p>
+</li>
+<li>
+<p><code>Channel</code> 提供异步的网络 <code>I/O</code> 操作(如建立连接，读写，绑定端口)，异步调用意味着任何 <code>I/O</code> 调用都将立即返回，并且不保证在调用结束时所请求的 <code>I/O</code> 操作已完成</p>
+</li>
+<li>
+<p>调用立即返回一个 <code>ChannelFuture</code> 实例，通过注册监听器到 <code>ChannelFuture</code> 上，可以 <code>I/O</code> 操作成功、失败或取消时回调通知调用方</p>
+</li>
+<li>
+<p>支持关联 <code>I/O</code> 操作与对应的处理程序</p>
+</li>
+<li>
+<p>不同协议、不同的阻塞类型的连接都有不同的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Channel</span><br></pre></td></tr></table></figure>
+<p>类型与之对应，常用的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Channel</span><br></pre></td></tr></table></figure>
+<p>类型：</p>
+<ul>
+<li><code>NioSocketChannel</code>，异步的客户端 <code>TCP</code> <code>Socket</code> 连接。</li>
+<li><code>NioServerSocketChannel</code>，异步的服务器端 <code>TCP</code> <code>Socket</code> 连接。</li>
+<li><code>NioDatagramChannel</code>，异步的 <code>UDP</code> 连接。</li>
+<li><code>NioSctpChannel</code>，异步的客户端 <code>Sctp</code> 连接。</li>
+<li><code>NioSctpServerChannel</code>，异步的 <code>Sctp</code> 服务器端连接，这些通道涵盖了 <code>UDP</code> 和 <code>TCP</code> 网络 <code>IO</code> 以及文件 <code>IO</code>。</li>
+</ul>
+</li>
+</ol>
+<h2 id="Selector">Selector</h2>
+<ol>
+<li><code>Netty</code> 基于 <code>Selector</code> 对象实现 <code>I/O</code> 多路复用，通过 <code>Selector</code> 一个线程可以监听多个连接的 <code>Channel</code> 事件。</li>
+<li>当向一个 <code>Selector</code> 中注册 <code>Channel</code> 后，<code>Selector</code> 内部的机制就可以自动不断地查询（<code>Select</code>）这些注册的 <code>Channel</code> 是否有已就绪的 <code>I/O</code> 事件（例如可读，可写，网络连接完成等），这样程序就可以很简单地使用一个线程高效地管理多个 <code>Channel</code></li>
+</ol>
+<h2 id="ChannelHandler-及其实现类">ChannelHandler 及其实现类</h2>
+<ol>
+<li><code>ChannelHandler</code> 是一个接口，处理 <code>I/O</code> 事件或拦截 <code>I/O</code> 操作，并将其转发到其 <code>ChannelPipeline</code>（业务处理链）中的下一个处理程序。</li>
+<li><code>ChannelHandler</code> 本身并没有提供很多方法，因为这个接口有许多的方法需要实现，方便使用期间，可以继承它的子类</li>
+<li><code>ChannelHandler</code> 及其实现类一览图（后）</li>
+</ol>
+<p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/0015.png?x-oss-process=style/qingyun" alt="img"></p>
+<p>我们经常需要自定义一个 <code>Handler</code> 类去继承 <code>ChannelInboundHandlerAdapter</code>，然后通过重写相应方法实现业务逻辑，我们接下来看看一般都需要重写哪些方法</p>
+<p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/0016.png?x-oss-process=style/qingyun" alt="img"></p>
+<h2 id="Pipeline-和-ChannelPipeline">Pipeline 和 ChannelPipeline</h2>
+<ol>
+<li><code>ChannelPipeline</code> 是一个 <code>Handler</code> 的集合，它负责处理和拦截 <code>inbound</code> 或者 <code>outbound</code> 的事件和操作，相当于一个贯穿 <code>Netty</code> 的链。（也可以这样理解：<code>ChannelPipeline</code> 是保存 <code>ChannelHandler</code> 的 <code>List</code>，用于处理或拦截 <code>Channel</code> 的入站事件和出站操作）</li>
+<li><code>ChannelPipeline</code> 实现了一种高级形式的拦截过滤器模式，使用户可以完全控制事件的处理方式，以及 <code>Channel</code> 中各个的 <code>ChannelHandler</code> 如何相互交互</li>
+<li>在 <code>Netty</code> 中每个 <code>Channel</code> 都有且仅有一个 <code>ChannelPipeline</code> 与之对应，它们的组成关系如下</li>
+</ol>
+<p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/0017.png?x-oss-process=style/qingyun" alt="img"></p>
+<p>常用方法<br>
+<code>ChannelPipeline addFirst(ChannelHandler... handlers)</code>，把一个业务处理类（<code>handler</code>）添加到链中的第一个位置<code>ChannelPipeline addLast(ChannelHandler... handlers)</code>，把一个业务处理类（<code>handler</code>）添加到链中的最后一个位置</p>
+<p>从head看一下debug</p>
+<p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/0018.jpg?x-oss-process=style/qingyun" alt="img"></p>
+<ul>
+<li><code>TestServerInitializer</code>和<code>HttpServerCodec</code>这些东西本身也是<code>handler</code></li>
+<li>一般来说事件从客户端往服务器走我们称为出站，反之则是入站。</li>
+</ul>
+<h2 id="ChannelHandlerContext">ChannelHandlerContext</h2>
+<ol>
+<li>保存 <code>Channel</code> 相关的所有上下文信息，同时关联一个 <code>ChannelHandler</code> 对象</li>
+<li>即 <code>ChannelHandlerContext</code> 中包含一个具体的事件处理器 <code>ChannelHandler</code>，同时 <code>ChannelHandlerContext</code> 中也绑定了对应的 <code>pipeline</code> 和 <code>Channel</code> 的信息，方便对 <code>ChannelHandler</code> 进行调用。</li>
+</ol>
+<p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/0019.jpg?x-oss-process=style/qingyun" alt="img"></p>
+<ol>
+<li>常用方法</li>
+</ol>
+<ul>
+<li><code>ChannelFuture close()</code>，关闭通道</li>
+<li><code>ChannelOutboundInvoker flush()</code>，刷新</li>
+<li><code>ChannelFuture writeAndFlush(Object msg)</code>，将数据写到</li>
+<li><code>ChannelPipeline</code> 中当前 <code>ChannelHandler</code> 的下一个 <code>ChannelHandler</code> 开始处理（出站）</li>
+</ul>
+<p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/0020.png?x-oss-process=style/qingyun" alt="img"></p>
+<h2 id="ChannelOption">ChannelOption</h2>
+<ol>
+<li><code>Netty</code> 在创建 <code>Channel</code> 实例后，一般都需要设置 <code>ChannelOption</code> 参数。</li>
+<li><code>ChannelOption</code> 参数如下：</li>
+<li><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/0021.png?x-oss-process=style/qingyun" alt="img"></li>
+</ol>
+<h2 id="EventLoopGroup-和其实现类-NioEventLoopGroup">EventLoopGroup 和其实现类 NioEventLoopGroup</h2>
+<ol>
+<li><code>EventLoopGroup</code> 是一组 <code>EventLoop</code> 的抽象，<code>Netty</code> 为了更好的利用多核 <code>CPU</code> 资源，一般会有多个 <code>EventLoop</code> 同时工作，每个 <code>EventLoop</code> 维护着一个 <code>Selector</code> 实例。</li>
+<li><code>EventLoopGroup</code> 提供 <code>next</code> 接口，可以从组里面按照一定规则获取其中一个 <code>EventLoop</code> 来处理任务。在 <code>Netty</code> 服务器端编程中，我们一般都需要提供两个 <code>EventLoopGroup</code>，例如：<code>BossEventLoopGroup</code> 和 <code>WorkerEventLoopGroup</code>。</li>
+<li>通常一个服务端口即一个 <code>ServerSocketChannel</code> 对应一个 <code>Selector</code> 和一个 <code>EventLoop</code> 线程。<code>BossEventLoop</code> 负责接收客户端的连接并将 <code>SocketChannel</code> 交给 <code>WorkerEventLoopGroup</code> 来进行 <code>IO</code> 处理，如下图所示</li>
+</ol>
+<p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/0022.png?x-oss-process=style/qingyun" alt="img"></p>
+<p>常用方法<br>
+<code>public NioEventLoopGroup()</code>，构造方法<br>
+<code>public Future&lt;?&gt; shutdownGracefully()</code>，断开连接，关闭线程</p>
+<h2 id="Unpooled-类">Unpooled 类</h2>
+<ol>
+<li><code>Netty</code> 提供一个专门用来操作缓冲区（即 <code>Netty</code> 的数据容器）的工具类</li>
+<li>常用方法如下所示</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://unpkg.zhimg.com/youthlql@1.0.0/netty/introduction/chapter_002/0023.png"><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/0023.png?x-oss-process=style/qingyun" alt="img"></a></p>
+<p>举例说明 <code>Unpooled</code> 获取 <code>Netty</code> 的数据容器 <code>ByteBuf</code> 的基本使用</p>
+<p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/0024.png?x-oss-process=style/qingyun" alt="img"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atguigu.netty.buf;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.netty.buffer.ByteBuf;</span><br><span class="line"><span class="keyword">import</span> io.netty.buffer.Unpooled;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NettyByteBuf01</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//创建一个ByteBuf</span></span><br><span class="line">        <span class="comment">//说明</span></span><br><span class="line">        <span class="comment">//1. 创建 对象，该对象包含一个数组arr , 是一个byte[10]</span></span><br><span class="line">        <span class="comment">//2. 在netty 的buffer中，不需要使用flip 进行反转</span></span><br><span class="line">        <span class="comment">//   底层维护了 readerindex 和 writerIndex</span></span><br><span class="line">        <span class="comment">//3. 通过 readerindex 和  writerIndex 和  capacity， 将buffer分成三个区域</span></span><br><span class="line">        <span class="comment">// 0---readerindex 已经读取的区域</span></span><br><span class="line">        <span class="comment">// readerindex---writerIndex ， 可读的区域</span></span><br><span class="line">        <span class="comment">// writerIndex -- capacity, 可写的区域</span></span><br><span class="line">        ByteBuf buffer = Unpooled.buffer(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            buffer.writeByte(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;capacity=&quot;</span> + buffer.capacity());<span class="comment">//10</span></span><br><span class="line">        <span class="comment">//输出</span></span><br><span class="line"><span class="comment">//        for(int i = 0; i&lt;buffer.capacity(); i++) &#123;</span></span><br><span class="line">        	  <span class="comment">//这个方法readerindex不会变</span></span><br><span class="line"><span class="comment">//            System.out.println(buffer.getByte(i));</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; buffer.capacity(); i++) &#123;</span><br><span class="line">            <span class="comment">//这个方法readerindex会变</span></span><br><span class="line">            System.out.println(buffer.readByte());</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行完毕&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.atguigu.netty.buf;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.netty.buffer.ByteBuf;</span><br><span class="line"><span class="keyword">import</span> io.netty.buffer.Unpooled;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.nio.charset.Charset;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NettyByteBuf02</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建ByteBuf</span></span><br><span class="line">        ByteBuf byteBuf = Unpooled.copiedBuffer(<span class="string">&quot;hello,world!&quot;</span>, Charset.forName(<span class="string">&quot;utf-8&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用相关的方法</span></span><br><span class="line">        <span class="keyword">if</span> (byteBuf.hasArray()) &#123; <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">byte</span>[] content = byteBuf.array();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//将 content 转成字符串</span></span><br><span class="line">            System.out.println(<span class="keyword">new</span> String(content, Charset.forName(<span class="string">&quot;utf-8&quot;</span>)));</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">&quot;byteBuf=&quot;</span> + byteBuf);</span><br><span class="line"></span><br><span class="line">            System.out.println(byteBuf.arrayOffset()); <span class="comment">// 0</span></span><br><span class="line">            System.out.println(byteBuf.readerIndex()); <span class="comment">// 0</span></span><br><span class="line">            System.out.println(byteBuf.writerIndex()); <span class="comment">// 12</span></span><br><span class="line">            System.out.println(byteBuf.capacity()); <span class="comment">// 36</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">//System.out.println(byteBuf.readByte()); //</span></span><br><span class="line">            System.out.println(byteBuf.getByte(<span class="number">0</span>)); <span class="comment">// 104</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> len = byteBuf.readableBytes(); <span class="comment">//可读的字节数  12</span></span><br><span class="line">            System.out.println(<span class="string">&quot;len=&quot;</span> + len);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//使用for取出各个字节</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">                System.out.println((<span class="keyword">char</span>) byteBuf.getByte(i));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//按照某个范围读取</span></span><br><span class="line">            System.out.println(byteBuf.getCharSequence(<span class="number">0</span>, <span class="number">4</span>, Charset.forName(<span class="string">&quot;utf-8&quot;</span>)));</span><br><span class="line">            System.out.println(byteBuf.getCharSequence(<span class="number">4</span>, <span class="number">6</span>, Charset.forName(<span class="string">&quot;utf-8&quot;</span>)));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BD%AC%E8%BD%BD/">转载</a><a class="post-meta__tags" href="/tags/netty/">netty</a><a class="post-meta__tags" href="/tags/%E9%A3%8E%E7%A5%88%E7%9A%84%E6%97%B6%E5%85%89%E5%BD%95/">风祈的时光录</a></div><div class="post_share"><div class="social-share" data-image="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/1473790032/"><img class="prev-cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">从B站学习的Netty14</div></div></a></div><div class="next-post pull-right"><a href="/posts/1052410200/"><img class="next-cover" src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">20211201</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/1051297182/" title="从B站学习的Netty01"><img class="cover" src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty01</div></div></a></div><div><a href="/posts/2812335140/" title="从B站学习的Netty02"><img class="cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty02</div></div></a></div><div><a href="/posts/3500663986/" title="从B站学习的Netty03"><img class="cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty03</div></div></a></div><div><a href="/posts/1321431313/" title="从B站学习的Netty04"><img class="cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty04</div></div></a></div><div><a href="/posts/2697793597/" title="从B站学习的Netty06"><img class="cover" src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty06</div></div></a></div><div><a href="/posts/969163143/" title="从B站学习的Netty05"><img class="cover" src="http://typa.qingyun.run/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-29</div><div class="title">从B站学习的Netty05</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.ibb.co/y4NkVrm/qingyun.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Qing Yun</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">36</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/liuzheng2000" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1553385162&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">梦想开始之地</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Netty 核心模块组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Bootstrap%E3%80%81ServerBootstrap"><span class="toc-number">1.1.</span> <span class="toc-text">Bootstrap、ServerBootstrap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Future%E3%80%81ChannelFuture"><span class="toc-number">1.2.</span> <span class="toc-text">Future、ChannelFuture</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Channel"><span class="toc-number">1.3.</span> <span class="toc-text">Channel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Selector"><span class="toc-number">1.4.</span> <span class="toc-text">Selector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ChannelHandler-%E5%8F%8A%E5%85%B6%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-number">1.5.</span> <span class="toc-text">ChannelHandler 及其实现类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pipeline-%E5%92%8C-ChannelPipeline"><span class="toc-number">1.6.</span> <span class="toc-text">Pipeline 和 ChannelPipeline</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ChannelHandlerContext"><span class="toc-number">1.7.</span> <span class="toc-text">ChannelHandlerContext</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ChannelOption"><span class="toc-number">1.8.</span> <span class="toc-text">ChannelOption</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EventLoopGroup-%E5%92%8C%E5%85%B6%E5%AE%9E%E7%8E%B0%E7%B1%BB-NioEventLoopGroup"><span class="toc-number">1.9.</span> <span class="toc-text">EventLoopGroup 和其实现类 NioEventLoopGroup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unpooled-%E7%B1%BB"><span class="toc-number">1.10.</span> <span class="toc-text">Unpooled 类</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/3501514868/" title="20211203"><img src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="20211203"/></a><div class="content"><a class="title" href="/posts/3501514868/" title="20211203">20211203</a><time datetime="2021-12-03T01:51:36.000Z" title="发表于 2021-12-03 09:51:36">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1584270459/" title="从B站学习的Netty18"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty18"/></a><div class="content"><a class="title" href="/posts/1584270459/" title="从B站学习的Netty18">从B站学习的Netty18</a><time datetime="2021-12-03T00:51:16.000Z" title="发表于 2021-12-03 08:51:16">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3469808106/" title="从B站学习的Netty17"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty17"/></a><div class="content"><a class="title" href="/posts/3469808106/" title="从B站学习的Netty17">从B站学习的Netty17</a><time datetime="2021-12-03T00:50:50.000Z" title="发表于 2021-12-03 08:50:50">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3117818236/" title="从B站学习的Netty16"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty16"/></a><div class="content"><a class="title" href="/posts/3117818236/" title="从B站学习的Netty16">从B站学习的Netty16</a><time datetime="2021-12-03T00:50:22.000Z" title="发表于 2021-12-03 08:50:22">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/551514310/" title="从B站学习的Netty15"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty15"/></a><div class="content"><a class="title" href="/posts/551514310/" title="从B站学习的Netty15">从B站学习的Netty15</a><time datetime="2021-12-03T00:49:40.000Z" title="发表于 2021-12-03 08:49:40">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1473790032/" title="从B站学习的Netty14"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty14"/></a><div class="content"><a class="title" href="/posts/1473790032/" title="从B站学习的Netty14">从B站学习的Netty14</a><time datetime="2021-12-01T02:13:16.000Z" title="发表于 2021-12-01 10:13:16">2021-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3384595955/" title="从B站学习的Netty13"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty13"/></a><div class="content"><a class="title" href="/posts/3384595955/" title="从B站学习的Netty13">从B站学习的Netty13</a><time datetime="2021-12-01T02:12:34.000Z" title="发表于 2021-12-01 10:12:34">2021-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1052410200/" title="20211201"><img src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="20211201"/></a><div class="content"><a class="title" href="/posts/1052410200/" title="20211201">20211201</a><time datetime="2021-12-01T02:06:50.000Z" title="发表于 2021-12-01 10:06:50">2021-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3199984997/" title="从B站学习的Netty12"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty12"/></a><div class="content"><a class="title" href="/posts/3199984997/" title="从B站学习的Netty12">从B站学习的Netty12</a><time datetime="2021-11-30T05:06:03.000Z" title="发表于 2021-11-30 13:06:03">2021-11-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/666023135/" title="从B站学习的Netty11"><img src="http://typa.qingyun.run/img/Konachan.com%20-%20330764%20sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从B站学习的Netty11"/></a><div class="content"><a class="title" href="/posts/666023135/" title="从B站学习的Netty11">从B站学习的Netty11</a><time datetime="2021-11-30T05:04:19.000Z" title="发表于 2021-11-30 13:04:19">2021-11-30</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://img-baofun.zhhainiao.com/pcwallpaper_ugc/preview_jpg/19367cbcf3b03cc253455b4208074d76.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 By Qing Yun</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">青云小栈</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'qingyun-7gmjbhk1be9df68d',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'qingyun-7gmjbhk1be9df68d',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'qingyun-7gmjbhk1be9df68d',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
