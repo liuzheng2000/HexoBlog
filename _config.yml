@@ -130,3 +130,7 @@ aplayer:
 #百度站图
 baidusitemap:
 path: baidusitemap.xml
+
+#live2d
+live2d:
+  enable: true
