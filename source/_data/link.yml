@@ -6,6 +6,11 @@
       avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg
       descr: 快速、簡單且強大的網誌框架
 
+    - name: 学习与生活
+      link: https://ql-isaac.cn/
+      avatar: https://image.ql-isaac.cn/站长头像.jpg
+      descr: It’s a beautiful day!
+
 - class_name: 網站
   class_desc: 值得推薦的網站
   link_list:
