@@ -4,6 +4,156 @@
   
     
     <entry>
+      <title>Mirai机器人</title>
+      <link href="/posts/3866395813/"/>
+      <url>/posts/3866395813/</url>
+      
+        <content type="html"><![CDATA[<p>Mirai 项目   建立机器人</p><p>最近写的一个私人项目  （项目不开源）</p><p>因为牵扯到一个代理的问题，导致项目不能够很好的运行，但具体效果如下</p><h4 id="雀魂方面的功能">雀魂方面的功能</h4><p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/image-20211223163521369.png?x-oss-process=style/qingyun" alt="image-20211223163521369"></p><p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/image-20211223163544216.png?x-oss-process=style/qingyun" alt="image-20211223163544216"></p><p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/image-20211223163654870.png?x-oss-process=style/qingyun" alt="image-20211223163654870"></p><p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/image-20211223163733398.png?x-oss-process=style/qingyun" alt="image-20211223163733398"></p><h4 id="色图方面的功能">色图方面的功能</h4><p>此色图调用了llAPI</p><p>查询色图</p><p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/image-20211223164039694.png?x-oss-process=style/qingyun" alt="image-20211223164039694"></p><p>依图搜图</p><p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/image-20211223164117318.png?x-oss-process=style/qingyun" alt="image-20211223164117318"></p><p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/image-20211223164217278.png?x-oss-process=style/qingyun" alt="image-20211223164217278"></p><p>大致项目结构如上  如果有缘人看到  且想要  可私聊我  估计没人吧</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> mirai </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mirai </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux配置Redis</title>
+      <link href="/posts/3478723624/"/>
+      <url>/posts/3478723624/</url>
+      
+        <content type="html"><![CDATA[<p>卸载</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get --purge remove redis-tools</span><br><span class="line">apt-get --purge remove redis-server</span><br></pre></td></tr></table></figure><p>redis 密码</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2MCFxMzyqyVQTFghUwo9sNMTDE+KuZYbt5/p21SqLvvWTry0p7lVWtciTt2D5QpA1voRt1Dnv</span><br></pre></td></tr></table></figure><p><a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04">https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-18-04</a></p><p><a href="https://stackoverflow.com/questions/19091087/open-redis-port-for-remote-connections">https://stackoverflow.com/questions/19091087/open-redis-port-for-remote-connections</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux配置代理</title>
+      <link href="/posts/1821854004/"/>
+      <url>/posts/1821854004/</url>
+      
+        <content type="html"><![CDATA[<h2 id="背景">背景</h2><p>linux 啥都好，就是日常使用的软件不够丰富，就比如 clash: windows 和 mac 上都有专门的图形化界面，而 linux  上就没有，只有简陋的命令行。使用自建 vps 倒也罢了，如果你使用的是机场，那么订阅规则总不可能自己一个个地手动去写吧？</p><p>最近我的 vps 故障了，于是就试用了几天机场，虽然对它的安全性抱有顾虑，但它的速度实在是太香了，那么我们有没有什么办法愉快地在 linux 平台上管理我们的机场订阅呢？</p><p>简单的方法是有的，据我所知，目前惟一一个支持图形化界面自动管理订阅的软件是：<a href="https://github.com/Qv2ray/Qv2ray">QV2ray</a> ，通过它你能很方便地管理 ssr,v2ray 的订阅规则。QV2ray 的本体并不支持 trojan 规则，好在官方提供了一个 <a href="https://github.com/Qv2ray/QvPlugin-Trojan">QvPlugin-Trojan</a> 插件，通过它你也可以很方便地管理 trojan 订阅。</p><p>它的界面是这样的：</p><p>​<a href="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-30.png"> <img src="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-30.png" alt="img"> </a></p><p>那为什么还要去折腾 clash 呢？从我的经验看，主要有下面几个理由：</p><ul><li>clash 的分流功能更为强大，网络上有很多共享的自动代理切换规则都是基于 clash</li><li>QV2ray 还不够成熟，使用不规则的 https 端口时会出现证书验证失败的问题，需要手动忽略证书</li><li>个人感觉 clash 的性能比 QV2ray 稍强</li></ul><p>顺带一提，如果你使用的是 trojan-go 那么你也只能使用 QV2ray ，因为 clash 只支持 trojan 不支持 trojan-go.</p><h2 id="clash-的安装及使用">clash 的安装及使用</h2><h3 id="安装">安装</h3><p>本节简要介绍了如何在 linux 上安装 clash 。</p><h4 id="通过包管理器安装">通过包管理器安装</h4><p>如果你使用的是 arch ，那么可以通过 aur 很方便地安装，只要执行 <code>yay clash</code> 就可以了，这样的好处是会自动生成 service 文件，可以方便你通过 systemctl 开机启动 clash.</p><h4 id="通过-go-安装">通过 go 安装</h4><p>clash 是基于 golang 实现的，因此你也可以通过 golang 编译安装，如果你使用的不是 arch ，那么你只能通过这种方式安装了。命令是 <code>go get -u github.com/Dreamacro/clash</code> ，之后会在 <code>~/go/bin</code> 目录下生成二进制文件，如果不在这个目录，那么你也可以通过 <code>go env</code> 命令查看 <code>gopath</code> 的具体位置。</p><p>通过这种方式安装的问题是你需要手动地添加 service 文件，这里我把上一步生成的 serivce 文件贴出来：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=A rule based proxy in Go for %i.</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=exec</span><br><span class="line">User=%i</span><br><span class="line">Restart=on-abort</span><br><span class="line">ExecStart=/usr/bin/clash</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure><p>把这个文件放到 <code>/usr/lib/systemd/system/clash@.service</code> ，你需要修改内容是 <code>ExecStart</code> ，将其改成 clash 二进制文件所在的路径。</p><h3 id="启动">启动</h3><p>在配置好 service 文件后，systemctl 的命令是：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable clash@&lt;username&gt; # 开机自启</span><br><span class="line">sudo systemctl start clash@&lt;username&gt; # 启动</span><br><span class="line">sudo systemctl stop clash@&lt;username&gt; # 停止</span><br></pre></td></tr></table></figure><p>在默认情况下，clash 会监听三个端口：</p><ul><li>http 代理端口：7890</li><li>socks 代理端口：7891</li><li>clash restful 配置服务端口：9090 ，这个端口一般是提供给前端管理页面使用的</li></ul><p>在系统中配置好相应的代理服务后就可以科学上网了。</p><h3 id="配置文件">配置文件</h3><p>配置文件的路径是： <code>~/.config/clash/config.yaml</code> 下面生成的配置就需要贴到这个文件中。</p><h2 id="clash-订阅导入原理">clash 订阅导入原理</h2><p>在 linux 上导入订阅需要用到两个工具：</p><ul><li><a href="https://github.com/tindy2013/subconverter">subconverter</a> subconverter 的作用是将订阅连接转换成 clash 配置。</li><li><a href="https://github.com/MSKNET/sub-web">sub-web</a> sub-web 是 subconverter 的前端，提供了一个方便的浏览器页面。</li></ul><p><img src="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-31.png" alt="Figure 1: 流程图"></p><p>Figure 1: 流程图</p><p>现在你 google clash 订阅，出来的无非就是这两个东西。 sub-web 的本质就是一个静态 html 页面，你能搜索到很多人提供的托管网站，但问题是并不安全，你并不知道他们会不会偷偷记录下你的订阅连接，所以最好的方法是本地安装。</p><h3 id="本地安装-sub-web">本地安装 sub-web</h3><p>sub-web 是一个 nodejs 项目，为了编译这个项目，你需要安装 nodejs 环境并安装 yarn 。</p><p>从 github clone 这个项目后，使用 <code>yarn install</code> ， <code>yarn serve</code> 就能启动。</p><h3 id="安装-subconverter">安装 subconverter</h3><p>这个比较简单，作者提供了 release ，直接下载 <code>subconverter_linux64.tar.gz</code> 文件解压后在目录下执行 <code>subconverter</code> 命令，就能启动服务，默认端口是 25500</p><h3 id="使用">使用</h3><p>按照上述步骤启动 sub-web 和 subconverter 之后，访问 sub-web 的浏览器地址，这个地址在执行 <code>yarn server</code> 后会在终端提供，默认是 <a href="http://localhost:8080/">http://localhost:8080/</a> 。</p><p>使用很简单，只需要填入订阅连接和后端地址就可以了：</p><p><img src="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-32.png" alt="img"></p><p>将生成的连接复制到新标签页访问，你就能得到一个完整的 clash 配置，将其复制到 <code>~/.config/clash/config.yaml</code> 文件中，重启 clash 就可以了。</p><h2 id="通过-clash-dashboard-管理代理">通过 clash-dashboard 管理代理</h2><p>订阅连接里一般会提供很多的代理服务器，clash 会自动选择最快的一个，有时候你或许会想要手动使用其中某个服务器，这个时候就需要用到 <a href="https://github.com/Dreamacro/clash-dashboard">clash-dashboard</a> 了。</p><p>和 sub-web 一样，这也是一个前端项目，依次执行 <code>yarn install</code>, <code>yarn start</code> 就可以了，由于这个项目使用的是 vite 构建，你可能需要执行 <code>yarn global add vite</code> 安装。</p><p><s>和 sub-web 不同，clash-dashboard 并不需要 web 容器，因此你也可以通过 <code>yarn build</code> 生成静态 html 页面，然后直接在文件访问这个文件。</s> 后来我发现其实还是需要 web 容器的，奇怪，印象中以前的版本是不需要的。</p><p>界面是这样的：</p><p>​<a href="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-34.png"> <img src="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-34.png" alt="img"> </a></p><h2 id="通过-netlify-托管-sub-web-和-clash-dashboard">通过 netlify 托管 sub-web 和 clash-dashboard</h2><p>在本地使用这些服务虽然很安全，但也很麻烦，幸运的是 netlify 上提供了免费的静态网站托管服务。</p><h3 id="fork-项目">fork 项目</h3><p>由于 netlify 只能托管自己的 github 项目，因此你需要 fork web-web 和 clash-dashboard</p><h3 id="部署">部署</h3><p>在 netlify 上部署静态网站非常简单，只要点击几次鼠标就可以了。</p><p><img src="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-35.png" alt="img"></p><p>​<a href="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-36.png"> <img src="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-36.png" alt="img"> </a></p><p>​<a href="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-37.png"> <img src="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-37.png" alt="img"> </a></p><p><img src="https://hsingko.github.io/p/%E5%9C%A8-linux-%E4%B8%8A%E4%BD%BF%E7%94%A8-clash-%E8%AE%A2%E9%98%85/images/screenshot-38.png" alt="img"></p><p>等待一段时间后，你就可以访问这些网站了。这样做的好处是以后你只需要在本地启动一个 subconverter 就可以了。</p><h2 id="待解决的问题">待解决的问题</h2><p>目前 subconverter 似乎并不能自动将配置写入到 clash ，需要手动复制，如果遇到订阅内容频繁变更的情况就很麻烦了。</p><p>clash 的 api 似乎支持写入配置，我想以后可以写一个脚本自动化地做这件事情。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux运行JAR</title>
+      <link href="/posts/4164729442/"/>
+      <url>/posts/4164729442/</url>
+      
+        <content type="html"><![CDATA[<p>Linux 运行jar包命令如下：</p><p>方式一：</p><ol><li>java -jar shareniu.jar</li></ol><p>特点：当前ssh窗口被锁定，可按CTRL + C打断程序运行，或直接关闭窗口，程序退出</p><p>那如何让窗口不锁定？</p><p>方式二</p><ol><li>java -jar shareniu.jar &amp;</li></ol><p>&amp;代表在后台运行。</p><p>特定：当前ssh窗口不被锁定，但是当窗口关闭时，程序中止运行。</p><p>继续改进，如何让窗口关闭时，程序仍然运行？</p><p>方式三</p><p>nohup java -jar shareniu.jar &amp;</p><p>nohup 意思是不挂断运行命令,当账户退出或终端关闭时,程序仍然运行</p><p>当用 nohup 命令执行作业时，缺省情况下该作业的所有输出被重定向到nohup.out的文件中，除非另外指定了输出文件。</p><p>方式四</p><ol><li>nohup java -jar shareniu.jar &gt;temp.txt &amp;</li></ol><p>解释下 &gt;temp.txt</p><p>command &gt;out.file</p><p>command &gt;out.file是将command的输出重定向到out.file文件，即输出内容不打印到屏幕上，而是输出到out.file文件中。</p><p>可通过jobs命令查看后台运行任务</p><ol><li>jobs</li></ol><p>那么就会列出所有后台执行的作业，并且每个作业前面都有个编号。<br>如果想将某个作业调回前台控制，只需要 fg + 编号即可。</p><ol><li>fg 23</li></ol><p>查看某端口占用的线程的pid</p><p>netstat -nlp |grep :9181</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux翻墙</title>
+      <link href="/posts/3705656404/"/>
+      <url>/posts/3705656404/</url>
+      
+        <content type="html"><![CDATA[<p>有关于Linux上使用 翻墙 软件</p><p>一：如果你的机场允许使用Clash代理，推荐使用Clash代理</p><p>具体的使用方法推荐Google</p><p>百度 与 必应都不太可以</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux服务</title>
+      <link href="/posts/3076615355/"/>
+      <url>/posts/3076615355/</url>
+      
+        <content type="html"><![CDATA[<p>Linux  服务</p><p>1 Hexo  博客  服务    使用nginx 反向代理   开放端口 80</p><p>2 李沐老师学习AI  python文档   目前没在运行</p><p>3 redis 配置完成  使用端口6379</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>油猴插件使用</title>
       <link href="/posts/916282190/"/>
       <url>/posts/916282190/</url>
@@ -35,7 +185,7 @@
       <link href="/posts/2136524390/"/>
       <url>/posts/2136524390/</url>
       
-        <content type="html"><![CDATA[<h3 id="写在生活之外的往事">写在生活之外的往事</h3><h4 id="一：为什么不想考研">一：为什么不想考研</h4><p>没有能力，没有热情，很多时候都不知道自己想去做什么，只是浑浑噩噩的过日子。</p><h4 id="二：对不起的人">二：对不起的人</h4><p>于父母有愧，二老对我没太大要求，只是渴望我有更好的发展，不被人欺负，不受气</p><h4 id="三：担心害怕的事情">三：担心害怕的事情</h4><p>害怕对不起父母，但是自己又不愿意去承担，假如亲近之人生病，我又该怎么办？没钱，没能力。</p><h4 id="四：对待社会">四：对待社会</h4><p>不怎么喜欢、社会千奇百怪，光怪陆离，就像在地狱一样。</p><h4 id="五：为什么写这些？">五：为什么写这些？</h4><p>我没抑郁症，也没想不开，只是记录下，想着一些事情，就在这里留下！</p>]]></content>
+        <content type="html"><![CDATA[<h3 id="写在生活之外的往事">写在生活之外的往事</h3><h4 id="一：为什么不想考研">一：为什么不想考研</h4><p>没有能力，没有热情，很多时候都不知道自己想去做什么，只是浑浑噩噩的过日子。</p><h4 id="二：对不起的人">二：对不起的人</h4><p>于父母有愧，二老对我没太大要求，只是渴望我有更好的发展，不被人欺负，不受气</p><h4 id="三：担心害怕的事情">三：担心害怕的事情</h4><p>害怕对不起父母，但是自己又不愿意去承担，假如亲近之人生病，我又该怎么办？没钱，没能力。</p><h4 id="四：对待社会">四：对待社会</h4><p>不怎么喜欢、社会千奇百怪，光怪陆离，就像在地狱一样。</p><h4 id="五：为什么写这些？">五：为什么写这些？</h4><p>我没抑郁症，也没想不开，只是记录下，想着一些事情，就在这里留下！</p><h4 id="六：想着依年为单位去完成一些东西">六：想着依年为单位去完成一些东西</h4><p>时间不等人，落叶于枫树飘零，但不知以年为单位的任务，是否能带来改变</p>]]></content>
       
       
       <categories>
