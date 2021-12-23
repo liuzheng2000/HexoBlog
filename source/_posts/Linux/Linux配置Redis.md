@@ -1,9 +1,10 @@
 ---
 title: Linux配置Redis
-date: 2021-12-23 16:20:40
 tags:
   - linux
 categories: linux
+abbrlink: 3478723624
+date: 2021-12-23 16:20:40
 ---
 卸载
 

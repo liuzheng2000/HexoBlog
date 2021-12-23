@@ -1,8 +1,9 @@
 ---
 title: linux服务
-date: 2021-12-23 16:16:43
 tags: Linux
 categories: Linux
+abbrlink: 3076615355
+date: 2021-12-23 16:16:43
 ---
 Linux  服务
 

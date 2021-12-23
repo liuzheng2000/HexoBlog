@@ -1,8 +1,9 @@
 ---
 title: Linux运行JAR
-date: 2021-12-23 16:19:14
 tags: Linux
 categories: Linux
+abbrlink: 4164729442
+date: 2021-12-23 16:19:14
 ---
 Linux 运行jar包命令如下：
 

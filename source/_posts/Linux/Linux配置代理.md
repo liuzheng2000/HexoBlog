@@ -1,8 +1,9 @@
 ---
 title: Linux配置代理
-date: 2021-12-23 16:20:00
 tags: Linux
 categories: Linux
+abbrlink: 1821854004
+date: 2021-12-23 16:20:00
 ---
 ## 背景
 

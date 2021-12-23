@@ -1,8 +1,9 @@
 ---
 title: Linux翻墙
-date: 2021-12-23 16:18:31
 tags: Linux
 categories: Linux
+abbrlink: 3705656404
+date: 2021-12-23 16:18:31
 ---
 有关于Linux上使用 翻墙 软件
 
