@@ -2604,12 +2604,12 @@ hexo-log@^2.0.0:
   dependencies:
     chalk "^4.0.0"
 
-hexo-offline@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/hexo-offline/-/hexo-offline-2.0.0.tgz#08f8e628aa350cf1e1ef61586e97d45d282b3816"
-  integrity sha512-iqjOtKS3oksnU6Rf4xD0BUxuVVYhulbx2e+TIOYrziJkrxBZC3qFc7lOobqW9cXP5NBx7H94WVWsYIl+H18/1g==
+hexo-offline@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/hexo-offline/-/hexo-offline-2.0.1.tgz#e898b0512ed416b7c5f7a78c2a2172f8a542c303"
+  integrity sha512-0Ibh3uUk13/UhXgsXw9iPnGU0Avt2qTy9V8GhhzTJVkVz339xEouHAu4K+xfXA7fCs12R5ifgHaur85q1t3C8A==
   dependencies:
-    workbox-build "^6.1.0"
+    workbox-build "^6.4.2"
 
 hexo-pagination@1.0.0:
   version "1.0.0"
@@ -5084,7 +5084,7 @@ workbox-broadcast-update@6.4.2:
   dependencies:
     workbox-core "6.4.2"
 
-workbox-build@^6.1.0:
+workbox-build@^6.4.2:
   version "6.4.2"
   resolved "https://registry.yarnpkg.com/workbox-build/-/workbox-build-6.4.2.tgz#47f9baa946c3491533cd5ccb1f194a7160e8a6e3"
   integrity sha512-WMdYLhDIsuzViOTXDH+tJ1GijkFp5khSYolnxR/11zmfhNDtuo7jof72xPGFy+KRpsz6tug39RhivCj77qqO0w==
