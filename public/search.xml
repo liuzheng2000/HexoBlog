@@ -4,6 +4,60 @@
   
     
     <entry>
+      <title>等等号与equals的区别</title>
+      <link href="/posts/520649011/"/>
+      <url>/posts/520649011/</url>
+      
+        <content type="html"><![CDATA[<h1>等等与equals的区别</h1><h2 id="前言">前言</h2><p>我们都知道， == 是比较内存地址，equals是比较值</p><p>但是这种非常错误的一种观点</p><ul><li>==：比较基本数据类型的时候，比较的是值，引用数据类型比较的是地址（new的对象，==比较永远是false）</li><li>equals：属于Object类的方法，如果我们没有重写过equals方法，那么它就是 ==，但是字符串里面的equals被重写过了，比较的是值</li></ul><h2 id="代码一">代码一</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * equals和等等的区别</span><br><span class="line"> *</span><br><span class="line"> * @author: 陌溪</span><br><span class="line"> * @create: 2020-04-03-8:50</span><br><span class="line"> */</span><br><span class="line">public class EqualsDemo &#123;</span><br><span class="line"></span><br><span class="line">    static class Person &#123;</span><br><span class="line">        private String name;</span><br><span class="line"></span><br><span class="line">        public Person(String name) &#123;</span><br><span class="line">            this.name = name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        String s1 = new String(&quot;abc&quot;);</span><br><span class="line">        String s2 = new String(&quot;abc&quot;);</span><br><span class="line"></span><br><span class="line">        System.out.println(s1 == s2);</span><br><span class="line">        System.out.println(s1.equals(s2));</span><br><span class="line">        Set&lt;String&gt; set1 = new HashSet&lt;&gt;();</span><br><span class="line">        set1.add(s1);</span><br><span class="line">        set1.add(s2);</span><br><span class="line">        System.out.println(set1.size());</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;==============&quot;);</span><br><span class="line"></span><br><span class="line">        String s3 = &quot;cbd&quot;;</span><br><span class="line">        String s4 = &quot;cbd&quot;;</span><br><span class="line"></span><br><span class="line">        System.out.println(s3 == s4);</span><br><span class="line">        System.out.println(s3.equals(s4));</span><br><span class="line">        Set&lt;String&gt; set3 = new HashSet&lt;&gt;();</span><br><span class="line">        set3.add(s3);</span><br><span class="line">        set3.add(s3);</span><br><span class="line">        System.out.println(set3.size());</span><br><span class="line"></span><br><span class="line">        System.out.println(&quot;==============&quot;);</span><br><span class="line"></span><br><span class="line">        Person person1 = new Person(&quot;abc&quot;);</span><br><span class="line">        Person person2 = new Person(&quot;abc&quot;);</span><br><span class="line">        System.out.println(person1 == person2);</span><br><span class="line">        System.out.println(person1.equals(person2));</span><br><span class="line">        Set&lt;Person&gt; set2 = new HashSet&lt;&gt;();</span><br><span class="line">        set2.add(person1);</span><br><span class="line">        set2.add(person2);</span><br><span class="line">        System.out.println(set2.size());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>最后结果</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">false（==：如果是new出来的对象，比较的时候永远是false）</span><br><span class="line">true：（字符串中的equals被重写过，比较的是值）</span><br><span class="line">1：（HashSet底层是HashMap，HashMap内部是调用equals 和 HashCode，但是String内部的HashCode和equals也被复写）</span><br><span class="line">==============</span><br><span class="line">true（我们通过这种方式创建的会放在一个字符串常量池中，相同的字符串，会指向常量池中同一个对象，因此他们的地址是一样的）</span><br><span class="line">true（字符串中的equals被重写过，比较的是值）</span><br><span class="line">1</span><br><span class="line">==============</span><br><span class="line">false（==：如果是new出来的对象，比较的时候永远是false）</span><br><span class="line">false（Person中的equals没有被重写，相当于等等）</span><br><span class="line">2</span><br></pre></td></tr></table></figure><h2 id="代码二">代码二</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">String str1 = &quot;abc&quot;;</span><br><span class="line">String str2 = new String(&quot;abc&quot;);</span><br><span class="line">String str3 = &quot;abc&quot;;</span><br><span class="line">String str4 =  &quot;xxx&quot;;</span><br><span class="line">String str5 = &quot;abc&quot; + &quot;xxx&quot;;</span><br><span class="line">String str6 = s3 + s4;</span><br><span class="line"></span><br><span class="line">System.out.println(&quot;str1 == str2：&quot; + (str1 == str2));</span><br><span class="line">System.out.println(&quot;str1.equals(str2)：&quot; + (str1.equals(str2)));</span><br><span class="line">System.out.println(&quot;str1 == str5：&quot; + (str1 == str5));</span><br><span class="line">System.out.println(&quot;str1 == str6：&quot; + (str1 == str6));</span><br><span class="line">System.out.println(&quot;str5 == str6：&quot; + (str5 == str6));</span><br><span class="line">System.out.println(&quot;str5.equals(str6)：&quot; + (str5.equals(str6)));</span><br><span class="line">System.out.println(&quot;str1 == str6.intern()：&quot; + (str1 == str6.intern()));</span><br><span class="line">System.out.println(&quot;str1 == str2.intern()：&quot; + (str1 == str2.intern()));</span><br></pre></td></tr></table></figure><p>运行结果：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">str1 == str2：false</span><br><span class="line">str1.equals(str2)：true</span><br><span class="line">str1 == str5：false</span><br><span class="line">str1 == str6：false</span><br><span class="line">str5 == str6：false</span><br><span class="line">str5.equals(str6)：true</span><br><span class="line">str1 == str6.intern()：false</span><br><span class="line">str1 == str2.intern()：true</span><br></pre></td></tr></table></figure><p>下面解释关于 intern方法</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">一句话，intern方法就是从常量池中获取对象</span><br><span class="line">返回字符串对象的规范表示形式</span><br><span class="line">字符串池最初为空，由类字符串私下维护</span><br><span class="line">调用intern方法时，如果池中已包含由equals(Object)方法确定的与此String对象相等的字符串，则返回池中的字符串</span><br><span class="line">否者，此字符串添加到池中，并返回对此字符串对象的引用</span><br><span class="line">因此，对于任意两个字符串s和t，s.intern() == t.intern() 在且仅当 s.equals(t) 为 true时候,所有文字字符串和字符串值常量表达式都会被插入</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> SQL </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JAVA </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>实体类生成数据库</title>
+      <link href="/posts/56995396/"/>
+      <url>/posts/56995396/</url>
+      
+        <content type="html"><![CDATA[<p>用实体类自动生成数据库</p><p>使用实体类生成数据库</p><p>我们可以借助<a href="https://gitee.com/sunchenbin/mybatis-enhance">mybatis-enhance-actable</a>自动完成</p><p>可以在项目开始时 ，简单建立我们所需要的表格，依此节省时间</p><p>效果如下</p><p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/image-20211227152121637.png?x-oss-process=style/qingyun" alt="image-20211227152121637"></p><p>当看到完成创建表时，我们便达到目的</p><p><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/image-20211227152212218.png?x-oss-process=style/qingyun" alt="image-20211227152212218"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> SQL </category>
+          
+          <category> JAVA </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JAVA </tag>
+            
+            <tag> SQL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Mirai机器人</title>
       <link href="/posts/3866395813/"/>
       <url>/posts/3866395813/</url>
