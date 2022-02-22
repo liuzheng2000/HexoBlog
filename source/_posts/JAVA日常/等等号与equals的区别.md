@@ -2,8 +2,10 @@
 title: 等等号与equals的区别
 tags:
   - JAVA
+  - 转载
 categories:
-  - SQL
+  - JAVA
+  - 转载
 abbrlink: 520649011
 date: 2022-02-21 11:01:13
 ---
