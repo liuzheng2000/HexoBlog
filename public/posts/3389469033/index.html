@@ -1,0 +1,537 @@
+<!DOCTYPE html><html lang="zh_CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>堆糖面试 | 青云小栈</title><meta name="keywords" content="面试"><meta name="author" content="Qing Yun"><meta name="copyright" content="Qing Yun"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="堆糖面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="堆糖面试">
+<meta property="og:url" content="http://qingyun.run/posts/3389469033/index.html">
+<meta property="og:site_name" content="青云小栈">
+<meta property="og:description" content="堆糖面试">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun">
+<meta property="article:published_time" content="2022-02-23T13:18:49.000Z">
+<meta property="article:modified_time" content="2022-02-23T13:20:02.980Z">
+<meta property="article:author" content="Qing Yun">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun"><link rel="shortcut icon" href="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/1.png?x-oss-process=style/qingyun"><link rel="canonical" href="http://qingyun.run/posts/3389469033/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9d0182a84d5490eb50c4c6666812e629";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":60,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Qing Yun","link":"链接: ","source":"来源: 青云小栈","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '堆糖面试',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-23 21:20:02'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2969026_lqb1y9vjt3.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.ibb.co/y4NkVrm/qingyun.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 测试</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qingyun/"><i class="fa-fw iconfont icon-test"></i><span> 青云</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">青云小栈</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 测试</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qingyun/"><i class="fa-fw iconfont icon-test"></i><span> 青云</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">堆糖面试</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-23T13:18:49.000Z" title="发表于 2022-02-23 21:18:49">2022-02-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-23T13:20:02.980Z" title="更新于 2022-02-23 21:20:02">2022-02-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9D%A2%E8%AF%95/">面试</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="堆糖面试"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><ul>
+<li>
+<p>什么是Aqs</p>
+<ul>
+<li>
+<p>AQS的全称是AbstractQueuedSynchronizer，是抽象队列同步器，其实他就是一个用来构建锁和同步器的框架，内部实现的关键是：先进先出的队列、state状态，在LOCK包中的相关锁(常用的有ReentrantLock、 ReadWriteLock)都是基于AQS来构建。</p>
+</li>
+<li>
+<p>AQS的核心思想是什么？它是怎么实现的？<br>
+AQS核心思想是，如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的工作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占用。<br>
+AQS使用一个voliate int成员变量来表示同步状态，通过内置的FIFO队列来完成获取资源线程的排队工作。AQS使用CAS对该同步状态进行原子操作实现对其值的修改。<br>
+AQS定义了两种资源获取方式：独占（只有一个线程能访问执行）和共享（多个线程可同时访问执行）</p>
+<p>AQS：操作资源的方式有独占和共享两种方式，在理解它之前，先去了解它如何使用，我们随便写一个类，再写一个内部类继承AQS，重写特定的方法就可以使用，因为有独占和共享两种方式所以也有对应的方法，独占有tryAcquire和tryRelease。共享有tryAcquireShared和tryReleaseShared。AQS的核心由一个阻塞队列和一个volatile修饰的state变量组成。AQS可以通过cas对state变量进行修改，一般来说，state为0时表示无锁状态，state大于0时表示有线程获得锁。从代码上看，如果我们调用lock方法是，触发Acquire方法，该方法又会去调用tryAcquire方法以cas的方式尝试获取锁，如果获取失败，就调用addWaiter方法把当前线程包装为Node对象添加到阻塞队列中。然后调用acquireQueued方法通过自旋去获取锁。<br>
+————————————————</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Arraylist和linkedlist区别</p>
+<ul>
+<li>
+<p><strong>1、数据结构不同</strong></p>
+<p>ArrayList是Array(动态数组)的数据结构，LinkedList是Link(链表)的数据结构。</p>
+<p>当随机访问List（get和set操作）时，ArrayList比LinkedList的效率更高，因为LinkedList是线性的数据存储方式，所以需要移动指针从前往后依次查找。</p>
+<p><strong>2、效率不同</strong></p>
+<p>当对数据进行增加和删除的操作(add和remove操作)时，LinkedList比ArrayList的效率更高，因为ArrayList是数组，所以在其中进行增删操作时，会对操作点之后所有数据的下标索引造成影响，需要进行数据的移动。</p>
+<p><strong>3、自由性不同</strong></p>
+<p>ArrayList自由性较低，因为它需要手动的设置固定大小的容量，但是它的使用比较方便，只需要创建，然后添加数据，通过调用下标进行使用；而LinkedList自由性较高，能够动态的随数据量的变化而变化，但是它不便于使用。</p>
+<p><strong>4、主要控件开销不同</strong></p>
+<p>ArrayList主要控件开销在于需要在lList列表预留一定空间；而LinkList主要控件开销在于需要存储结点信息以及结点指针信息。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Jmm Java内存模型</p>
+<ul>
+<li>JMM就是一组规则，这组规则意在解决在并发编程可能出现的线程安全问题，并提供了内置解决方案（happen-before原则）及其外部可使用的同步手段</li>
+</ul>
+</li>
+<li>
+<p>Happenb<a target="_blank" rel="noopener" href="https://www.nowcoder.com/jump/super-jump/word?word=ofo">ofo</a>re</p>
+<ul>
+<li>
+<p>happen-before是JMM最核心的概念，所以在了解happen-before原则之前，首先需要了解java的内存模型。<br>
+JMM内存模型</p>
+<pre><code> java内存模型是共享内存的并发模型，线程之间主要通过读-写共享变量来完成隐式通信。java中的共享变量是存储在内存中的，多个线程由其工作内存，其工作方式是将共享内存中的变量拿出来放在工作内存，操作完成后，再将最新的变量放回共享变量，这时其他的线程就可以获取到最新的共享变量。
+</code></pre>
+<p>————————————————<br>
+版权声明：本文为CSDN博主「发奋小青年」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>
+原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/ma_chen_qq/article/details/82990603">https://blog.csdn.net/ma_chen_qq/article/details/82990603</a></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Jvm结构，三种<a target="_blank" rel="noopener" href="https://www.nowcoder.com/jump/super-jump/word?word=%E7%AE%97%E6%B3%95">算法</a></p>
+<ul>
+<li></li>
+<li>
+<blockquote>
+<p>运行数据区包括方法区、堆、本地方法栈、java  栈、程序计数器这五个部分。其中，（1）方法区用于保存类的元结构信息（保存所有定义的方法的信息，以及类中定义的静态变量、常量、运行时常量池等）、（2）堆内存中存放实例变量，（3）本地方法栈用于处理标记为 native  的代码，（4）程序计数器作为一个指针（指向方法区中的方法字节码，用于指示下一个要执行的指令代码是什么，告诉执行引擎下一条要执行的指令是什么），（5）栈内存是各线程私有的，生命周期为：在线程创建时创建，线程结束时释放。基本类型的变量、引用类型变量、实例方法都是在栈内存中存放的。</p>
+<p>垃圾回收：主要针对方法区和堆内存（有些垃圾回收器不回收方法区内存），两者存在 OOM问题（OutOfMemoryError）</p>
+<p>java 栈和本地方法栈不存在垃圾回收，但是存在 StackOverFlow（栈内存溢出问题）</p>
+</blockquote>
+</li>
+<li>
+<p>​	.2 复制算法：MinorGC（普通GC)</p>
+</li>
+<li>
+<p>7.3 标记清除</p>
+</li>
+<li>
+<p>标记整理算法：FullGC又叫MajorGC（全局GC)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Jvm的垃圾回收器</p>
+<ul>
+<li>
+<p><em><strong>*二、垃圾回收器*</strong></em></p>
+<p>​    前面我们介绍的所有回收算法都是为实现垃圾回收器服务的，而垃圾回收器就是内存回收的具体实现。目前HotSpot虚拟机用到的垃圾回收器如下图所示。注意只有两个回收器之间有连线才能配合使用。</p>
+<p>1、串行垃圾回收器</p>
+<pre><code>    在JDK1.3.1之前，单线程回收器是唯一的选择。它的单线程意义不仅仅是说它只会使用一个CPU或一个收集线程去完成垃圾收集工作。而且它进行垃圾回收的时候，必须暂停其他所有的工作线程（Stop The World,STW），直到它收集完成。它适合Client模式的应用，在单CPU环境下，它简单高效，由于没有线程交互的开销，专心垃圾收集自然可以获得最高的单线程效率。
+
+    串行的垃圾收集器有两种，Serial与Serial Old，一般两者搭配使用。新生代采用Serial，是利用复制算法；老年代使用Serial Old采用标记-整理算法。Client应用或者命令行程序可以，通过-XX:+UseSerialGC可以开启上述回收模式。下图是其运行过程示意图。
+</code></pre>
+<p>3、CMS收集器</p>
+</li>
+</ul>
+</li>
+<li>
+<p><a target="_blank" rel="noopener" href="https://www.nowcoder.com/jump/super-jump/word?word=%E7%BA%A2%E9%BB%91%E6%A0%91">红黑树</a>是什么树，是avl树吗</p>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E4%BA%8C%E5%8F%89%E6%A0%91&amp;spm=1001.2101.3001.7020">二叉树</a>的每一个节点的左右子树的深度差不超过1。</p>
+</li>
+<li>
+<p>通过旋转，旋转分为四种类型<br>
+1、LL型（右旋）：在左子树的左孩子上添加新的节点</p>
+<p>2、RR型（左旋）：在右子树的右孩子上添加新的节点</p>
+<p>3、LR型（先左旋（失衡子树）再右旋）：在左子树的右孩子上添加新节点</p>
+<p>4、RL型（先右旋（失衡子树）再左旋）：在右子树的左孩子上添加新节点</p>
+<h1>三、AVL树</h1>
+<p>AVL树是带有平衡条件的二叉查找树，左右子树树高不超过1，AVL树是<strong>严格</strong>的平衡二叉树，平衡条件必须满足（所有节点的左右子树高度差不超过1）。因此它也被称为高度平衡树。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>jdk1.8中HashMap底层链表转红黑树的阈值为什么是8？红黑树转链表为什么是6？</p>
+<ul>
+<li><strong>和hashcode碰撞次数的泊松分布有关，主要是为了寻找一种时间和空间的平衡。</strong></li>
+</ul>
+</li>
+<li>
+<p>Spring中涉及的设计模式总结</p>
+<ul>
+<li>1.简单工厂(非23种设计模式中的一种)</li>
+<li>2.工厂方法</li>
+<li>3.单例模式</li>
+<li>4.适配器模式</li>
+<li>5.装饰器模式</li>
+<li>6.代理模式</li>
+<li>7.观察者模式</li>
+</ul>
+</li>
+<li>
+<p>Aop的原理</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Qing Yun</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://qingyun.run/posts/3389469033/">http://qingyun.run/posts/3389469033/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://qingyun.run" target="_blank">青云小栈</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a></div><div class="post_share"><div class="social-share" data-image="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/1320368156/"><img class="next-cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">分布式锁</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/3483312613/" title="理想汽车理论测试"><img class="cover" src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-09</div><div class="title">理想汽车理论测试</div></div></a></div><div><a href="/posts/4253828478/" title="021/12/6 理想汽车一面"><img class="cover" src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 330764 sample.jpg?x-oss-process=style/qingyun" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-09</div><div class="title">021/12/6 理想汽车一面</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.ibb.co/y4NkVrm/qingyun.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Qing Yun</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">81</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/liuzheng2000" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1553385162&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">梦想开始之地</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">三、AVL树</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/3389469033/" title="堆糖面试"><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="堆糖面试"/></a><div class="content"><a class="title" href="/posts/3389469033/" title="堆糖面试">堆糖面试</a><time datetime="2022-02-23T13:18:49.000Z" title="发表于 2022-02-23 21:18:49">2022-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1320368156/" title="分布式锁"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式锁"/></a><div class="content"><a class="title" href="/posts/1320368156/" title="分布式锁">分布式锁</a><time datetime="2022-02-22T09:01:45.000Z" title="发表于 2022-02-22 17:01:45">2022-02-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1461862978/" title="代码块"><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 330764 sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="代码块"/></a><div class="content"><a class="title" href="/posts/1461862978/" title="代码块">代码块</a><time datetime="2022-02-22T08:02:30.000Z" title="发表于 2022-02-22 16:02:30">2022-02-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/520649011/" title="等等号与equals的区别"><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="等等号与equals的区别"/></a><div class="content"><a class="title" href="/posts/520649011/" title="等等号与equals的区别">等等号与equals的区别</a><time datetime="2022-02-21T03:01:13.000Z" title="发表于 2022-02-21 11:01:13">2022-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/56995396/" title="实体类生成数据库"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="实体类生成数据库"/></a><div class="content"><a class="title" href="/posts/56995396/" title="实体类生成数据库">实体类生成数据库</a><time datetime="2021-12-27T12:49:12.000Z" title="发表于 2021-12-27 20:49:12">2021-12-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3866395813/" title="Mirai机器人"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Mirai机器人"/></a><div class="content"><a class="title" href="/posts/3866395813/" title="Mirai机器人">Mirai机器人</a><time datetime="2021-12-23T08:43:42.000Z" title="发表于 2021-12-23 16:43:42">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3478723624/" title="Linux配置Redis"><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 330764 sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux配置Redis"/></a><div class="content"><a class="title" href="/posts/3478723624/" title="Linux配置Redis">Linux配置Redis</a><time datetime="2021-12-23T08:20:40.000Z" title="发表于 2021-12-23 16:20:40">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1821854004/" title="Linux配置代理"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux配置代理"/></a><div class="content"><a class="title" href="/posts/1821854004/" title="Linux配置代理">Linux配置代理</a><time datetime="2021-12-23T08:20:00.000Z" title="发表于 2021-12-23 16:20:00">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4164729442/" title="Linux运行JAR"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux运行JAR"/></a><div class="content"><a class="title" href="/posts/4164729442/" title="Linux运行JAR">Linux运行JAR</a><time datetime="2021-12-23T08:19:14.000Z" title="发表于 2021-12-23 16:19:14">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3705656404/" title="Linux翻墙"><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux翻墙"/></a><div class="content"><a class="title" href="/posts/3705656404/" title="Linux翻墙">Linux翻墙</a><time datetime="2021-12-23T08:18:31.000Z" title="发表于 2021-12-23 16:18:31">2021-12-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://img-baofun.zhhainiao.com/pcwallpaper_ugc/preview_jpg/19367cbcf3b03cc253455b4208074d76.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Qing Yun</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">青云小栈</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'qingyun-7gmjbhk1be9df68d',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'qingyun-7gmjbhk1be9df68d',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'qingyun-7gmjbhk1be9df68d',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="/live2d-widget/autoload.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
