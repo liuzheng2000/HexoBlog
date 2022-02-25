@@ -2,12 +2,17 @@
 title: MySQL的储存引擎
 tags:
   - SQL
+  - 转载
 categories:
   - SQL
+  - 转载
 abbrlink: 3975153558
 date: 2022-02-25 19:37:32
 ---
 ## Mysql默认搜索引擎
+
+
+转载： https://gitee.com/sdut-it-lab/LearningNotes/tree/master/%E6%A0%A1%E6%8B%9B%E9%9D%A2%E8%AF%95/%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98/4_MySQL%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E
 
 Mysql5.5以后默认使用InnoDB为搜索引擎
 
