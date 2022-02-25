@@ -1,0 +1,592 @@
+<!DOCTYPE html><html lang="zh_CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MySQL的储存引擎 | 青云小栈</title><meta name="keywords" content="SQL"><meta name="author" content="Qing Yun"><meta name="copyright" content="Qing Yun"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Mysql默认搜索引擎 Mysql5.5以后默认使用InnoDB为搜索引擎 MyISAM是表锁，不支持事务和主外键  InnoDB默认可以创建16个索引  InnoDB支持事务，MyIsam不支持事务，对于InnoDB每一条SQL语言都默认封装成事务，自动提交，这样会影响速度，所以最好把多条SQL语言放到begin 和 commit之间，组成一个事务； InnoDB支持外键，而MyIsam不支持，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL的储存引擎">
+<meta property="og:url" content="http://qingyun.run/posts/3975153558/index.html">
+<meta property="og:site_name" content="青云小栈">
+<meta property="og:description" content="Mysql默认搜索引擎 Mysql5.5以后默认使用InnoDB为搜索引擎 MyISAM是表锁，不支持事务和主外键  InnoDB默认可以创建16个索引  InnoDB支持事务，MyIsam不支持事务，对于InnoDB每一条SQL语言都默认封装成事务，自动提交，这样会影响速度，所以最好把多条SQL语言放到begin 和 commit之间，组成一个事务； InnoDB支持外键，而MyIsam不支持，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun">
+<meta property="article:published_time" content="2022-02-25T11:37:32.000Z">
+<meta property="article:modified_time" content="2022-02-25T11:38:12.291Z">
+<meta property="article:author" content="Qing Yun">
+<meta property="article:tag" content="SQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun"><link rel="shortcut icon" href="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/1.png?x-oss-process=style/qingyun"><link rel="canonical" href="http://qingyun.run/posts/3975153558/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?9d0182a84d5490eb50c4c6666812e629";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":60,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Qing Yun","link":"链接: ","source":"来源: 青云小栈","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MySQL的储存引擎',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-25 19:38:12'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    document.addEventListener('pjax:complete', detectApple)})(window)</script><link rel="stylesheet" href="//at.alicdn.com/t/font_2969026_lqb1y9vjt3.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.ibb.co/y4NkVrm/qingyun.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 测试</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qingyun/"><i class="fa-fw iconfont icon-test"></i><span> 青云</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">青云小栈</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 测试</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/qingyun/"><i class="fa-fw iconfont icon-test"></i><span> 青云</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音樂</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">MySQL的储存引擎</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-25T11:37:32.000Z" title="发表于 2022-02-25 19:37:32">2022-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-25T11:38:12.291Z" title="更新于 2022-02-25 19:38:12">2022-02-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/SQL/">SQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>14分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL的储存引擎"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Mysql默认搜索引擎">Mysql默认搜索引擎</h2>
+<p>Mysql5.5以后默认使用InnoDB为搜索引擎</p>
+<p>MyISAM是表锁，不支持事务和主外键</p>
+<p><img src="images/image-20200404084731063.png" alt="image-20200404084731063"></p>
+<p>InnoDB默认可以创建16个索引</p>
+<ul>
+<li>InnoDB支持事务，MyIsam不支持事务，对于InnoDB每一条SQL语言都默认封装成事务，自动提交，这样会影响速度，所以最好把多条SQL语言放到begin 和 commit之间，组成一个事务；</li>
+<li>InnoDB支持外键，而MyIsam不支持，对一个包含外键的InnoDB表转成MyIsam表会失败</li>
+<li>InnoDB是聚集索引，数据文件和索引绑定在一块，必须要有主键，通过主键索引效率很高，但是辅助索引需要两次查询，先查询到主键，然后在通过主键查询到数据。因此主键不应该过大。主键过大的时候，其它索引也会很大。而MyIsam是非聚集索引，数据和文件是分离的，索引保存的是数据文件的指针，主键索引和辅助索引是独立的。</li>
+<li>InnoDB不支持全文检索，而MyIsam支持全文检索，查询效率上MyIsam要高</li>
+</ul>
+<h2 id="硬盘">硬盘</h2>
+<p><img src="images/image-20200404085422944.png" alt="image-20200404085422944"></p>
+<p>Mysql是存储在硬盘上，因此Redis比Mysql快</p>
+<h2 id="索引">索引</h2>
+<p>Mysql官方对索引的定位为：索引是帮助Mysql高效获取数据的数据结构，可以得到索引的本质就是，索引是数据结构。</p>
+<p>可以简单的理解为：排好序的快速查找B+树数据结构，B+树中的B代表平衡(balance) 而不是 二叉（binary）</p>
+<h2 id="检索原理">检索原理</h2>
+<p>在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据，这样就可以在这些数据上实现高级查找算法，这种数据结构，就是索引。下图就是一种可能的索引方式示例：</p>
+<p><img src="images/image-20200404090022629.png" alt="image-20200404090022629"></p>
+<p>为了加快Col2的查找，可以维护一个左边所示的二叉树，每个节点分别包含索引键值和一个指向对应数据记录的物理地址的指针，这样就可以运用二叉树在一定的复杂度内获取相应数据，从而快速的检索出符合条件的记录。</p>
+<h2 id="聚簇索引和非聚簇索引">聚簇索引和非聚簇索引</h2>
+<ul>
+<li>聚簇索引：将数据存储与索引放到一块，索引结构的叶子节点保存了行数据</li>
+<li>非聚簇索引：将数据与索引分开，索引结构的叶子节点指向了数据对应的位置</li>
+</ul>
+<p>在InnoDB中，在聚簇索引之上创建的索引被称为辅助索引，非聚簇索引都是辅助索引，像复合索引，前缀索引，唯一索引。辅助索引叶子节点存储不再是行的物理位置，而是主键值，辅助索引访问数据总是需要二次查找，这个就被称为 回表操作</p>
+<p><img src="images/image-20200723105915972.png" alt="image-20200723105915972"></p>
+<p>InnoDB使用的是聚簇索引，将主键组织到一棵B+树中，而行数据就储存在叶子节点上，若使用&quot;where id = 14&quot;这样的条件查找主键，则按照B+树的检索算法即可查找到对应的叶节点，之后获得行数据。</p>
+<p>若对Name列进行条件搜索，则需要两个步骤：第一步在辅助索引B+树中检索Name，到达其叶子节点获取对应的主键。第二步使用主键在主索引B+树种再执行一次B+树检索操作，最终到达叶子节点即可获取整行数据。（重点在于通过其他键需要建立辅助索引）</p>
+<p><strong>聚簇索引具有唯一性</strong>，由于聚簇索引是将数据跟索引结构放到一块，因此一个表仅有一个聚簇索引。</p>
+<p><strong>表中行的物理顺序和索引中行的物理顺序是相同的</strong>，<strong>在创建任何非聚簇索引之前创建聚簇索引</strong>，这是因为聚簇索引改变了表中行的物理顺序，数据行 按照一定的顺序排列，并且自动维护这个顺序；</p>
+<p><strong>聚簇索引默认是主键</strong>，如果表中没有定义主键，InnoDB 会选择一个<strong>唯一且非空的索引</strong>代替。如果没有这样的索引，InnoDB 会**隐式定义一个主键（类似oracle中的RowId）**来作为聚簇索引。如果已经设置了主键为聚簇索引又希望再单独设置聚簇索引，必须先删除主键，然后添加我们想要的聚簇索引，最后恢复设置主键即可。</p>
+<p>MyISAM使用的是非聚簇索引，<strong>非聚簇索引的两棵B+树看上去没什么不同</strong>，节点的结构完全一致只是存储的内容不同而已，主键索引B+树的节点存储了主键，辅助键索引B+树存储了辅助键。表数据存储在独立的地方，这两颗B+树的叶子节点都使用一个地址指向真正的表数据，对于表数据来说，这两个键没有任何差别。由于<strong>索引树是独立的，通过辅助键检索无需访问主键的索引树</strong>。</p>
+<p><img src="images/image-20200723110258929.png" alt="image-20200723110258929"></p>
+<h3 id="使用聚簇索引的优势">使用聚簇索引的优势</h3>
+<p>**每次使用辅助索引检索都要经过两次B+树查找，**看上去聚簇索引的效率明显要低于非聚簇索引，这不是多此一举吗？聚簇索引的优势在哪？</p>
+<p>1.由于行数据和聚簇索引的叶子节点存储在一起，同一页中会有多条行数据，访问同一数据页不同行记录时，已经把页加载到了Buffer中（缓存器），再次访问时，会在内存中完成访问，不必访问磁盘。这样主键和行数据是一起被载入内存的，找到叶子节点就可以立刻将行数据返回了，如果按照主键Id来组织数据，获得数据更快。</p>
+<p>2.辅助索引的叶子节点，存储主键值，而不是数据的存放地址。好处是当行数据放生变化时，索引树的节点也需要分裂变化；或者是我们需要查找的数据，在上一次IO读写的缓存中没有，需要发生一次新的IO操作时，可以避免对辅助索引的维护工作，只需要维护聚簇索引树就好了。另一个好处是，因为辅助索引存放的是主键值，减少了辅助索引占用的存储空间大小。</p>
+<p>注：我们知道一次io读写，可以获取到16K大小的资源，我们称之为读取到的数据区域为Page。而我们的B树，B+树的索引结构，叶子节点上存放好多个关键字（索引值）和对应的数据，都会在一次IO操作中被读取到缓存中，所以在访问同一个页中的不同记录时，会在内存里操作，而不用再次进行IO操作了。除非发生了页的分裂，即要查询的行数据不在上次IO操作的换村里，才会触发新的IO操作。</p>
+<p>3.因为MyISAM的主索引并非聚簇索引，那么他的数据的物理地址必然是凌乱的，拿到这些物理地址，按照合适的算法进行I/O读取，于是开始不停的寻道不停的旋转。聚簇索引则只需一次I/O。（强烈的对比）</p>
+<p>4.不过，如果涉及到大数据量的排序、全表扫描、count之类的操作的话，还是MyISAM占优势些，因为索引所占空间小，这些操作是需要在内存中完成的。</p>
+<h3 id="聚簇索引需要注意的地方"><strong>聚簇索引需要注意的地方</strong></h3>
+<p>当使用主键为聚簇索引时，主键最好不要使用uuid，因为uuid的值太过离散，不适合排序且可能出线新增加记录的uuid，会插入在索引树中间的位置，导致索引树调整复杂度变大，消耗更多的时间和资源。</p>
+<p>建议使用int类型的自增，方便排序并且默认会在索引树的末尾增加主键值，对索引树的结构影响最小。而且，主键值占用的存储空间越大，辅助索引中保存的主键值也会跟着变大，占用存储空间，也会影响到IO操作读取到的数据量。</p>
+<p><strong>为什么主键通常建议使用自增id</strong></p>
+<p><strong>聚簇索引的数据的物理存放顺序与索引顺序是一致的</strong>，即：<strong>只要索引是相邻的，那么对应的数据一定也是相邻地存放在磁盘上的</strong>。如果主键不是自增id，那么可以想 象，它会干些什么，不断地调整数据的物理地址、分页，当然也有其他一些措施来减少这些操作，但却无法彻底避免。但，如果是自增的，那就简单了，它只需要一 页一页地写，索引结构相对紧凑，磁盘碎片少，效率也高。</p>
+<h2 id="B-树">B+树</h2>
+<p>B树：Balance Tree，多路平衡查找树</p>
+<p>B+树：加强版多路平衡查找树</p>
+<p>tip：没有B-树，B-树就是B树，中间不是减号而是横线</p>
+<h2 id="Mysql搜索引擎的发展之路">Mysql搜索引擎的发展之路</h2>
+<p>Mysql InnoDB的搜索引擎 的 底层也不是一来就是 B+树的，而是经过了不断的迭代过程</p>
+<ul>
+<li>全部遍历</li>
+<li>Hash</li>
+<li>二叉树</li>
+<li>平衡二叉树（AVL）</li>
+<li>B树</li>
+<li>B+树</li>
+</ul>
+<h3 id="全部遍历">全部遍历</h3>
+<p>相当于全表查询，把每条数据都查找一遍</p>
+<h3 id="Hash">Hash</h3>
+<p>加速查找速度的数据结构，常见的有两类</p>
+<ul>
+<li>哈希，例如HashMap，查询、插入、修改、删除的平均时间复杂度都是O(1)</li>
+<li>树：例如平衡二叉搜索树，查询、插入、修改、删除的平均事件复杂度都是O(log<sub>2</sub> (n))</li>
+</ul>
+<p>可以看到，不管是读请求，还是写请求，哈希类型的索引，都要比树型的索引更快一些，为什么不用Hash做索引呢，而要设计成树型结构呢？</p>
+<p>假设SQL语句为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from student where age = 15</span><br></pre></td></tr></table></figure>
+<p>我们能够通过Hash就可以很好的用Hash进行解决</p>
+<p>但是随着SQL的复杂化，对于以下范围查找，Hash就搞不定了，也就是说Hash就只能解决查1的问题</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from student where age &gt; 15 and age &lt; 20</span><br></pre></td></tr></table></figure>
+<p>想想范围/排序等其它SQL条件：</p>
+<p>哈希型的索引，时间复杂度会退化O(n) 而树型的“有序” 特性，依然能够保持 O(log<sub>2</sub>(n) )</p>
+<p>InnoDB：并不支持Hash索引</p>
+<h3 id="二叉树">二叉树</h3>
+<p>二叉树的特点</p>
+<ul>
+<li>一个节点只能有两个子节点，也就是一个节点的度不能超过2</li>
+<li>左子节点小于本节点，右子节点大于等于本节点，比我大的向右，比我小的向做</li>
+</ul>
+<p><img src="images/image-20200404093846645.png" alt="image-20200404093846645"></p>
+<p>对该二叉树的节点查找发现：</p>
+<p>深度为1的节点查找次数为：1</p>
+<p>深度为2的节点查找次数为：2</p>
+<p>深度为N的节点查找次数为：N</p>
+<p>结论：因此其平均查找长度为：(1+2+2+3+3+3) / 6 = 2.3次</p>
+<h4 id="问题">问题</h4>
+<ul>
+<li>如果ID是持续递增的话，会出现什么样的结构？</li>
+</ul>
+<p><img src="images/image-20200404094336765.png" alt="image-20200404094336765"></p>
+<p>这样树型结构，又会退化到 O(n) 的时间复杂度</p>
+<h3 id="平衡二叉树（AVL）">平衡二叉树（AVL）</h3>
+<h4 id="结构图">结构图</h4>
+<p><img src="images/image-20200404094719626.png" alt="image-20200404094719626"></p>
+<h4 id="问题-2">问题</h4>
+<p>可以看出平衡二叉树的缺点就是</p>
+<ul>
+<li>维护平衡过程的成本代价很高，因为每次删除一个节点或者增加一个节点的话，需要一次或多次的左旋和右旋去维护平衡状态</li>
+<li>查询的效率不稳定，还要看运气的成分在里面</li>
+<li>如果节点很多的话，那么这个AVL树的高度还是会很高的，查询效率会很低。</li>
+</ul>
+<p>从算法的数学逻辑来讲，二叉树的查找速度和比较次数都是最小的，那为什么我们选择BTree?因为AVL还有一个问题，那就是 磁盘IO的问题</p>
+<ul>
+<li>磁盘IO的次数，就是由树高来决定的，也即磁盘的IO次数最坏的情况下就等于树的高度。</li>
+</ul>
+<p>因为节点存储的数据太少，没有很好的利用操作系统和磁盘数据交换的特性，也没有利用好磁盘IO的预读能力。因为操作系统和磁盘之间一次数据交换是以页为单位的，一页 = 4K，即每次IO操作系统会将4K数据加载镜像内存。但是在二叉树每个节点的结构只保存一个关键字 和 数据区，两个子节点的引用，并不能填满4K的内容，辛辛苦苦的做了一次IO操作，却只加载了一个关键字，在树的高度很高，恰好要搜索的关键字位于叶子节点或支节点的时候，取一个关键字要做很多次的IO。因此平衡二叉树不太适合MySQL的查询结构。</p>
+<h4 id="解决方法">解决方法</h4>
+<p>我们需要解决的就是树的高度问题，导致磁盘IO过多</p>
+<p>那么就需要将树进行压缩，也就是将原来的瘦高 -&gt; 矮胖，通过降低树的高度达到减少IO的次数</p>
+<h3 id="B树">B树</h3>
+<p>B树，又被称为 2-3树，也就是B树上的节点，可能是2，也可能是3</p>
+<h4 id="结构图：">结构图：</h4>
+<p><img src="images/image-20200404100139814.png" alt="image-20200404100139814"></p>
+<h4 id="底层原理">底层原理</h4>
+<p>数据库索引是存储在磁盘上的，如果数据很大，必然导致索引的大小也会很大，超过几个G（好比新华字典字数多必然导致目录厚）</p>
+<p>当我们利用索引查询时，是不可能将全部几个G的索引都加载进内存的，我们能做的只能是：</p>
+<p>逐一加载每一个磁盘页，因为磁盘页对应着索引树的节点。</p>
+<p>InnoDB的 page_size</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW GLOBAL STATUS LIKE &#x27;Innodb_page_size&#x27;;</span><br></pre></td></tr></table></figure>
+<p><img src="images/image-20200404151334993.png" alt="image-20200404151334993"></p>
+<p>系统从磁盘读取数据到内存时是以磁盘块（block）为单位的，位于同一磁盘块中的数据会被一次性读取出来，而不是需要什么取什么</p>
+<p>InnoDB存储引擎中有页(Page)的概念，页是其磁盘管理的最小单位。</p>
+<p>系统一个磁盘块的存储空间往往没有这么大，因此InnoDB每次申请磁盘空间时都会是若干地址连续磁盘块来达到页的大小16KB。InnoDB在把磁盘数据读入到磁盘时会以页为基本单位，在查询数据时如果一个页中每条数据都有助于定位数据记录的位置，这将会减少磁盘I/O次数，提高效率。</p>
+<p>一句话说：就是多个块填充到一页大小</p>
+<h4 id="检索原理-2">检索原理</h4>
+<p>B树比平衡二叉树减少了一次IO操作</p>
+<p><img src="images/image-20200404152149658.png" alt="image-20200404152149658"></p>
+<p>每个节点占用一个盘块的磁盘空间，一个节点上有两个升序排序的关键字和三个指向子树根节点的指针，指针存储的是子节点所在磁盘块的地址。</p>
+<p>模拟查找关键字29的过程</p>
+<ul>
+<li>根据根节点找到磁盘块1，读入内存【磁盘IO操作1次】</li>
+<li>比较关键字29在区间(17, 35)，找到磁盘块1的指针P2。</li>
+<li>根据P2指针找到磁盘块3，读入内存。【磁盘IO操作第2次】</li>
+<li>比较关键字29在区间(26, 30)，找到磁盘块3的指针P2。</li>
+<li>根据P2指针找到磁盘块8，读入内存。【磁盘IO操作3次】</li>
+<li>在磁盘块8中的关键字列表，找到关键字29</li>
+</ul>
+<p>分析上述过程，发现需要3次IO操作，和3次内存查找操作，由于内存中的关键字是一个有序表结构，可以利用二分法查找提高效率。而3次磁盘IO操作是影响整个BTree查找效率的决定性因素。BTree相对于AVLTree缩减了节点个数，使每次磁盘IO取到内存的数据都发挥了作用，从而提高了查找效率。</p>
+<h3 id="B-树-2">B+树</h3>
+<p>B+树把所有数据放在叶子节点，形成了链表，我们查找数据更方便</p>
+<p>好查，好排序，好划定范围</p>
+<h4 id="B-树结构图">B+树结构图</h4>
+<p><img src="images/image-20200404155456211.png" alt="image-20200404155456211"></p>
+<p>把两种数据结构集成在一块了：树 + 链表</p>
+<p>图中可以看出所有的data信息都移动叶子节点中，而且子节点和子节点之间会有指针指向，这个也是B+树的核心点，这样可以大大提升范围查找效率，也方便遍历整个树。</p>
+<ul>
+<li>非叶子节点不在存储数据，数据只存储在同一层的叶子节点上</li>
+<li>叶子之间，增加链表，获取所有节点，不再需要中序遍历</li>
+<li>这也说明了，B+树的检索性能比B树强</li>
+</ul>
+<h4 id="检索原理-3">检索原理</h4>
+<p>由于B+树的非叶子只存储键值信息，假设每个磁盘块能存储4个键值及指针信息，那就变成如下结构</p>
+<p><img src="images/image-20200404161422032.png" alt="image-20200404161422032"></p>
+<p>B树结构图中可以看出每个节点不仅包含数据的key值，还有data值，而每一页的存储空间是有限的，如果data数据较大时将会导致每个节点（即一个页）能存储的key的数量很小，当存储数量很大时同样会导致B树的深度较大，增大查询时的磁盘IO次数进而影响查询效率。</p>
+<h2 id="Mysql为什么是B-树">Mysql为什么是B+树</h2>
+<p>B+树中，所有数据记录节点都是按照键值大小顺序存放在同一层叶子节点上，而非叶子节点上只存储key值信息，这样可以大大加大每个节点存储的key值数量，降低B+树的高度。</p>
+<ul>
+<li>InnoDB存储引擎的最小存储单元是页，页可以用于存放数据，也可以用于存放键值+指针，在B+树中叶子节点存放数据，而非叶子节点存放键值+指针</li>
+<li>索引组织表通过非叶子节点的二分查找法以及指针确定数据在哪个页中，首先找到根页进而去数据页查找到需要的数据</li>
+</ul>
+<p>B+树算法：通过集成B树的特征，B+树相比B树，新增叶子节点与非叶子节点关系，叶子节点包含了键值和数据，非叶子节点只是包含键值和子节点引用，不包含数据。</p>
+<p>通过非叶子节点查询叶子节点获取相应的数据，所有相邻的叶子节点包含非叶子节点使用链表进行结合，叶子节点是顺序并且相邻节点有顺序引用关系。</p>
+<h4 id="结论">结论</h4>
+<p>从B树到B+树，B+树在B树的基础上的一种优化使其更适合实现外存储索引结构，InnoDB存储引擎就是用B+树实现的索引结构</p>
+<p>一般我们存储的数据在百万级别的话，B+树的高度都是三层左右</p>
+<p>B树和B+树的不同之处</p>
+<ul>
+<li>非叶子节点只存储键值信息</li>
+<li>所有叶子节点之间都有双向链指针
+<ul>
+<li>可以基于叶子节点之间的范围查找</li>
+<li>或者基于根节点的查找</li>
+</ul>
+</li>
+<li>数据记录都存放在叶子节点中</li>
+</ul>
+<h2 id="参考">参考</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36520235/article/details/94317993">https://blog.csdn.net/qq_36520235/article/details/94317993</a></p>
+<p><a target="_blank" rel="noopener" href="https://my.oschina.net/xiaoyoung/blog/3046779">https://my.oschina.net/xiaoyoung/blog/3046779</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Qing Yun</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://qingyun.run/posts/3975153558/">http://qingyun.run/posts/3975153558/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://qingyun.run" target="_blank">青云小栈</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/SQL/">SQL</a></div><div class="post_share"><div class="social-share" data-image="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/3389469033/"><img class="next-cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">堆糖面试</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/56995396/" title="实体类生成数据库"><img class="cover" src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-27</div><div class="title">实体类生成数据库</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.ibb.co/y4NkVrm/qingyun.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Qing Yun</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">82</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">28</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/liuzheng2000" target="_blank" title="GitHub"><i class="fab fa-github"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=1553385162&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">梦想开始之地</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Mysql%E9%BB%98%E8%AE%A4%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E"><span class="toc-number">1.</span> <span class="toc-text">Mysql默认搜索引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E7%9B%98"><span class="toc-number">2.</span> <span class="toc-text">硬盘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B4%A2%E5%BC%95"><span class="toc-number">3.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E7%B4%A2%E5%8E%9F%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">检索原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="toc-number">5.</span> <span class="toc-text">聚簇索引和非聚簇索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="toc-number">5.1.</span> <span class="toc-text">使用聚簇索引的优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E5%9C%B0%E6%96%B9"><span class="toc-number">5.2.</span> <span class="toc-text">聚簇索引需要注意的地方</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E6%A0%91"><span class="toc-number">6.</span> <span class="toc-text">B+树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mysql%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E7%9A%84%E5%8F%91%E5%B1%95%E4%B9%8B%E8%B7%AF"><span class="toc-number">7.</span> <span class="toc-text">Mysql搜索引擎的发展之路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E9%83%A8%E9%81%8D%E5%8E%86"><span class="toc-number">7.1.</span> <span class="toc-text">全部遍历</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hash"><span class="toc-number">7.2.</span> <span class="toc-text">Hash</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="toc-number">7.3.</span> <span class="toc-text">二叉树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98"><span class="toc-number">7.3.1.</span> <span class="toc-text">问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91%EF%BC%88AVL%EF%BC%89"><span class="toc-number">7.4.</span> <span class="toc-text">平衡二叉树（AVL）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="toc-number">7.4.1.</span> <span class="toc-text">结构图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%97%AE%E9%A2%98-2"><span class="toc-number">7.4.2.</span> <span class="toc-text">问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">7.4.3.</span> <span class="toc-text">解决方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B%E6%A0%91"><span class="toc-number">7.5.</span> <span class="toc-text">B树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E5%9B%BE%EF%BC%9A"><span class="toc-number">7.5.1.</span> <span class="toc-text">结构图：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="toc-number">7.5.2.</span> <span class="toc-text">底层原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E7%B4%A2%E5%8E%9F%E7%90%86-2"><span class="toc-number">7.5.3.</span> <span class="toc-text">检索原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#B-%E6%A0%91-2"><span class="toc-number">7.6.</span> <span class="toc-text">B+树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#B-%E6%A0%91%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="toc-number">7.6.1.</span> <span class="toc-text">B+树结构图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E7%B4%A2%E5%8E%9F%E7%90%86-3"><span class="toc-number">7.6.2.</span> <span class="toc-text">检索原理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Mysql%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AFB-%E6%A0%91"><span class="toc-number">8.</span> <span class="toc-text">Mysql为什么是B+树</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-number">8.0.1.</span> <span class="toc-text">结论</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">9.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/3975153558/" title="MySQL的储存引擎"><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL的储存引擎"/></a><div class="content"><a class="title" href="/posts/3975153558/" title="MySQL的储存引擎">MySQL的储存引擎</a><time datetime="2022-02-25T11:37:32.000Z" title="发表于 2022-02-25 19:37:32">2022-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3389469033/" title="堆糖面试"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="堆糖面试"/></a><div class="content"><a class="title" href="/posts/3389469033/" title="堆糖面试">堆糖面试</a><time datetime="2022-02-23T13:18:49.000Z" title="发表于 2022-02-23 21:18:49">2022-02-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1320368156/" title="分布式锁"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式锁"/></a><div class="content"><a class="title" href="/posts/1320368156/" title="分布式锁">分布式锁</a><time datetime="2022-02-22T09:01:45.000Z" title="发表于 2022-02-22 17:01:45">2022-02-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1461862978/" title="代码块"><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 330764 sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="代码块"/></a><div class="content"><a class="title" href="/posts/1461862978/" title="代码块">代码块</a><time datetime="2022-02-22T08:02:30.000Z" title="发表于 2022-02-22 16:02:30">2022-02-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/520649011/" title="等等号与equals的区别"><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 304024 sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="等等号与equals的区别"/></a><div class="content"><a class="title" href="/posts/520649011/" title="等等号与equals的区别">等等号与equals的区别</a><time datetime="2022-02-21T03:01:13.000Z" title="发表于 2022-02-21 11:01:13">2022-02-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/56995396/" title="实体类生成数据库"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="实体类生成数据库"/></a><div class="content"><a class="title" href="/posts/56995396/" title="实体类生成数据库">实体类生成数据库</a><time datetime="2021-12-27T12:49:12.000Z" title="发表于 2021-12-27 20:49:12">2021-12-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3866395813/" title="Mirai机器人"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Mirai机器人"/></a><div class="content"><a class="title" href="/posts/3866395813/" title="Mirai机器人">Mirai机器人</a><time datetime="2021-12-23T08:43:42.000Z" title="发表于 2021-12-23 16:43:42">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3478723624/" title="Linux配置Redis"><img src="https://qingyun-test.oss-cn-hangzhou.aliyuncs.com/img/Konachan.com - 330764 sample.jpg?x-oss-process=style/qingyun" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux配置Redis"/></a><div class="content"><a class="title" href="/posts/3478723624/" title="Linux配置Redis">Linux配置Redis</a><time datetime="2021-12-23T08:20:40.000Z" title="发表于 2021-12-23 16:20:40">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/1821854004/" title="Linux配置代理"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux配置代理"/></a><div class="content"><a class="title" href="/posts/1821854004/" title="Linux配置代理">Linux配置代理</a><time datetime="2021-12-23T08:20:00.000Z" title="发表于 2021-12-23 16:20:00">2021-12-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4164729442/" title="Linux运行JAR"><img src="https://img2.huashi6.com/images/resource/p19762/2021/10/03/202748_6843872536.jpg?imageMogr2/quality/100/interlace/1/thumbnail/2000x%3E" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux运行JAR"/></a><div class="content"><a class="title" href="/posts/4164729442/" title="Linux运行JAR">Linux运行JAR</a><time datetime="2021-12-23T08:19:14.000Z" title="发表于 2021-12-23 16:19:14">2021-12-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://img-baofun.zhhainiao.com/pcwallpaper_ugc/preview_jpg/19367cbcf3b03cc253455b4208074d76.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2021 - 2022 By Qing Yun</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">青云小栈</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      true && mermaid.init()
+    })
+  }
+}</script><script>(()=>{
+  const $countDom = document.getElementById('twikoo-count')
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'qingyun-7gmjbhk1be9df68d',
+      region: ''
+    }, null))
+  }
+
+  const getCount = () => {
+    twikoo.getCommentsCount({
+      envId: 'qingyun-7gmjbhk1be9df68d',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(function (res) {
+      $countDom.innerText = res[0].count
+    }).catch(function (err) {
+      console.error(err);
+    });
+  }
+
+  const loadTwikoo = (bool = false) => {
+    if (typeof twikoo === 'object') {
+      init()
+      bool && $countDom && setTimeout(getCount,0)
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(()=> {
+        init()
+        bool && $countDom && setTimeout(getCount,0)
+      })
+    }
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo(true)
+  } else {
+    window.loadOtherComment = () => {
+      loadTwikoo()
+    }
+  }
+})()</script></div><script>window.addEventListener('load', () => {
+  const changeContent = (content) => {
+    if (content === '') return content
+
+    content = content.replace(/<img.*?src="(.*?)"?[^\>]+>/ig, '[图片]') // replace image link
+    content = content.replace(/<a[^>]+?href=["']?([^"']+)["']?[^>]*>([^<]+)<\/a>/gi, '[链接]') // replace url
+    content = content.replace(/<pre><code>.*?<\/pre>/gi, '[代码]') // replace code
+    content = content.replace(/<[^>]+>/g,"") // remove html tag
+
+    if (content.length > 150) {
+      content = content.substring(0,150) + '...'
+    }
+    return content
+  }
+
+  const getComment = () => {
+    const runTwikoo = () => {
+      twikoo.getRecentComments({
+        envId: 'qingyun-7gmjbhk1be9df68d',
+        region: '',
+        pageSize: 6,
+        includeReply: true
+      }).then(function (res) {
+        const twikooArray = res.map(e => {
+          return {
+            'content': changeContent(e.comment),
+            'avatar': e.avatar,
+            'nick': e.nick,
+            'url': e.url + '#' + e.id,
+            'date': new Date(e.created).toISOString()
+          }
+        })
+
+        saveToLocal.set('twikoo-newest-comments', JSON.stringify(twikooArray), 10/(60*24))
+        generateHtml(twikooArray)
+      }).catch(function (err) {
+        const $dom = document.querySelector('#card-newest-comments .aside-list')
+        $dom.innerHTML= "无法获取评论，请确认相关配置是否正确"
+      })
+    }
+
+    if (typeof twikoo === 'object') {
+      runTwikoo()
+    } else {
+      getScript('https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js').then(runTwikoo)
+    }
+  }
+
+  const generateHtml = array => {
+    let result = ''
+
+    if (array.length) {
+      for (let i = 0; i < array.length; i++) {
+        result += '<div class=\'aside-list-item\'>'
+
+        if (true) {
+          const name = 'src'
+          result += `<a href='${array[i].url}' class='thumbnail'><img ${name}='${array[i].avatar}' alt='${array[i].nick}'></a>`
+        }
+        
+        result += `<div class='content'>
+        <a class='comment' href='${array[i].url}'>${array[i].content}</a>
+        <div class='name'><span>${array[i].nick} / </span><time datetime="${array[i].date}">${btf.diffDate(array[i].date, true)}</time></div>
+        </div></div>`
+      }
+    } else {
+      result += '没有评论'
+    }
+
+    let $dom = document.querySelector('#card-newest-comments .aside-list')
+    $dom.innerHTML= result
+    window.lazyLoadInstance && window.lazyLoadInstance.update()
+    window.pjax && window.pjax.refresh($dom)
+  }
+
+  const newestCommentInit = () => {
+    if (document.querySelector('#card-newest-comments .aside-list')) {
+      const data = saveToLocal.get('twikoo-newest-comments')
+      if (data) {
+        generateHtml(JSON.parse(data))
+      } else {
+        getComment()
+      }
+    }
+  }
+
+  newestCommentInit()
+  document.addEventListener('pjax:complete', newestCommentInit)
+})</script><script src="/live2d-widget/autoload.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/gh/metowolf/MetingJS@1.2/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.removeEventListener('scroll', window.tocScrollFn)
+  window.removeEventListener('scroll', scrollCollect)
+
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
